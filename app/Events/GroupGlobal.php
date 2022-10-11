@@ -14,8 +14,8 @@ class GroupGlobal implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    private $message = '';
-    private $sender = null;
+    public $message = '';
+    public $sender = null;
     /**
      * Create a new event instance.
      *
@@ -39,10 +39,10 @@ class GroupGlobal implements ShouldBroadcast
 
     public function boradcastWith()
     {
-        return json_encode([
+        return [
             'message' => $this->message,
             'sender' => $this->sender
-        ]);
+        ];
     }
 
 }

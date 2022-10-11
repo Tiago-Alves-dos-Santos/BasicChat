@@ -26,19 +26,6 @@
     </div>
 </div>
 
-<script>
-    $(function(){
-        window.Echo.channel("teste")
-        .listen('Teste', (e) => {
-                console.log(e);
-        })
-    });
-
-    // window.Echo.channel("grupo.global")
-    //     .listen('', (e) => {
-    //             console.log(e);
-    //     })
-</script>
 
 @push('scripts')
 <script>
@@ -105,10 +92,12 @@
         })
 
 
-        // window.Echo.channel("grupo-global")
-        // .listen('GroupGlobal', (e) => {
-        //         console.log(e);
-        // })
+        window.Echo.channel("grupo.global")
+        .listen('GroupGlobal', (e) => {
+                console.log(e);
+                console.log(e.message);
+                console.log(e.sender);
+        })
     });
 </script>
 @endpush

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Events;
-use App\Events\Teste;
 use App\Events\GroupGlobal;
 use App\Models\GrupoGlobal;
 use App\Models\Notification;
@@ -39,11 +38,7 @@ class GrupoGlobalControl extends Controller
                 'user_id' => $request->user_id
             ]);
             //realtime messsage
-            // broadcast(new GroupGlobal($group->message, $group->user_id))
-            if(broadcast(new Teste())){
-                return json_encode($result);
-            }   
-            // broadcast(new GroupGlobal($group->message, $group->user_id));
+            broadcast(new GroupGlobal($group->message, $group->user_id));
             $user_name = Auth::user()->name;
             // Notification::create([
             //     'message' => "<span style='color:blue'>$user_name</span> acabou de enviar messagem no grupo"
