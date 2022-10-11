@@ -2,13 +2,14 @@
 
 namespace App\Events;
 
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class GroupGlobal implements ShouldBroadcast
 {
@@ -16,6 +17,7 @@ class GroupGlobal implements ShouldBroadcast
 
     public $message = '';
     public $sender = null;
+    public $user_name = '';
     /**
      * Create a new event instance.
      *
@@ -25,6 +27,7 @@ class GroupGlobal implements ShouldBroadcast
     {
         $this->message = $message;
         $this->sender = $sender;
+        $this->user_name = User::find($sender)->name;
     }
 
     /**
@@ -41,7 +44,8 @@ class GroupGlobal implements ShouldBroadcast
     {
         return [
             'message' => $this->message,
-            'sender' => $this->sender
+            'sender' => $this->sender,
+            'name' => $this->user_name
         ];
     }
 

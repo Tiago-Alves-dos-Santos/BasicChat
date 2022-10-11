@@ -33,6 +33,9 @@
         let height_screen = screen.height - 610;
         $(".chat-content").css('max-height', height_screen);
 
+        //id do usuario logado
+        let auth_id = "{{Auth::id()}}";
+
         //definindo ckeditor
         chatText = CKEDITOR.replace('chat_message');
 
@@ -43,6 +46,25 @@
             '                 <p>'+message+'</p>'+
             '             </div>'+
             '         </div>';
+
+            $('.chat-content').append(html);
+        }
+        function addMessage(message, sender, user_name = ''){
+            let html = '';
+            if(sender){
+                html = '<div class="message message-sender mt-1">'+
+                '             <div class="content">'+
+                '                 <p>'+message+'</p>'+
+                '             </div>'+
+                '         </div>';
+            }else{
+                html = '<div class="message message-addressee mt-1">'+
+                '             <div class="content">'+
+                '    <h6>'+user_name+'</h6>'+
+                '                 <p>'+message+'</p>'+
+                '             </div>'+
+                '         </div>';
+            }
 
             $('.chat-content').append(html);
         }
@@ -59,9 +81,9 @@
                         'user_id': "{{Auth::id()}}"
                     },
                     beforeSend: function(e){
-                        if(chat_mesage){
-                            addMessageSent(chat_mesage);
-                        }
+                        // if(chat_mesage){
+                        //     addMessageSent(chat_mesage);
+                        // }
                         CKEDITOR.instances['chat_message'].setData('');
                     },
                     complete: function(e){
@@ -92,12 +114,22 @@
         })
 
 
-        window.Echo.channel("grupo.global")
-        .listen('GroupGlobal', (e) => {
-                console.log(e);
-                console.log(e.message);
-                console.log(e.sender);
-        })
+        function realtimeMessage(){
+            window.Echo.channel("grupo.global")
+            .listen('GroupGlobal', (e) => {
+                    let sender = e.sender;
+                    let message = e.message;
+                    let name = e.user_name;
+
+                    if(sender == auth_id){//enviando
+                        addMessage(message, true);
+                    }else{//recebendo
+                        addMessage(message, false, name);
+                    }
+            })
+        }
+
+        realtimeMessage();
     });
 </script>
 @endpush
