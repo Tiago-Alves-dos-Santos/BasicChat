@@ -1,0 +1,68 @@
+@extends('layouts.chat', ['page' => 'contatos', 'title_page' => 'Contatos'])
+
+@section('content')
+<div id="contatos">
+    <div class="mt-5"></div>
+    <div class="row mb-5">
+        <div class="col-md-12">
+            <form action="" method="POST">
+                <div class="row">
+                    <div class="col-md-11 col-sm-12">
+                        <input type="search" class="form-control" placeholder="Buscar...">
+                    </div>
+                    <div class="col-md col-sm-12">
+                        <button type="submit" class="btn btn-primary d-block w-100">
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="teste" style="width: 100%; padding: 0 11px; overflow-y: auto; overflow-x: hidden">
+        @forelse ($users as $value)
+        <div class="row contato" data-url="{{route('view.chat.index', ['user_id' => base64_encode($value->id)])}}">
+            <div class="col-md-4 text-start">
+                <img src="{{asset('img/user-default.png')}}" alt="">
+            </div>
+            <div class="col-md-4 text-center align-self-center">
+                <h5>{{$value->name}}</h5>
+            </div>
+            <div class="col-md-4 text-end align-self-center">
+                @switch($value->online)
+                    @case('S')
+                    <span class="badge bg-success">Online</span>
+                        @break
+                    @case('N')
+                    <span class="badge bg-danger">Offline</span>
+                        @break
+                    @default
+                        
+                @endswitch
+            </div>
+        </div>
+        @empty
+        <div class="row contato">
+            <div class="col-md-12 text-center">
+                <h5>Sem contatos</h5>
+            </div>
+        </div>
+        @endforelse
+    </div>
+</div>
+
+@push('scripts')
+<script>
+    let height_screen = screen.height - 350;
+    $("#teste").css('max-height', height_screen);
+
+    function chatPrivate(){
+        $('.contato').on('click', function(){
+            let url = $(this).data('url');
+            window.location.href = url;
+        });
+    }
+    chatPrivate();
+</script>
+@endpush
+@endsection
