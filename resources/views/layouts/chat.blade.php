@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 @include('includes.header')
-<body>
+<body data-page="{{$page}}">
     <div id="chat-page">
         <div class="sidebar">
             <div class="link-container">
@@ -29,8 +29,28 @@
             </div>
         </div>
     </div>
-    
-    @include('includes.footer')
     @stack('scripts')
+    <script>
+        $(function(){
+            function isNotPageGroupExecute(function_callback){
+                let page_actual = $("body").data('page');
+
+                if(page_actual != 'grupo_global'){
+                    function_callback();
+                }
+            }
+            function messageGroupAlert(){
+                window.Echo.channel("notification.group")
+                .listen('NotificationGroup', (e) => {
+                        showToast('Mensagem no grupo', e.message, tipoToast('info'));
+                })
+            }
+
+            isNotPageGroupExecute(messageGroupAlert);
+        });
+    </script>
+    @include('includes.footer')
+
+    
 </body>
 </html>

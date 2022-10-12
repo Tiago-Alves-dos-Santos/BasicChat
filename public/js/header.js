@@ -1,3 +1,5 @@
+/************************ALERTAS*****************************/
+
 function tipoAlerta(tipo){ 
     switch (tipo) {
         case 'error':
@@ -93,7 +95,38 @@ function showQuestionYesNo(title,question_data, callback,color='dark'){
         }
     });
 }
+/************************TOASTS*****************************/
+function tipoToast(tipo){ 
+    switch (tipo) {
+        case 'info':
+            return 0;
+            break;
+        case 'warning':
+            return 1;
+            break;
+        case 'error':
+            return 2;
+            break;
+        case 'success':
+            return 3;
+            break;
 
+        default:
+            throw new Error("Paramêtro 'tipo':"+tipo+", possui valor não reconhecido na função ");
+            break;
+    }
+}
+function showToast(title, data, type){
+    let icon = ['info','warning','error','success'];
+    $.toast({
+        heading: title,
+        text: data,
+        showHideTransition: 'slide', /** slide, plain, fade */
+        icon: icon[type],
+        stack: 5, 
+    })
+}
+/************************FUNCTIONS*****************************/
 function semEspaco(element) {
     element.value = element.value.replace(/[^a-zA-Z0-9]/g,'');
 }

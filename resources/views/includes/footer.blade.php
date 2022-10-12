@@ -13,6 +13,15 @@
 @endphp
 @endif
 
+@if (session()->has('toast_msg'))
+    <script>
+        showToast("{{session('toast_msg.title')}}", "{{session('toast_msg.data')}}", "{{session('toast_msg.type')}}")
+    </script>
+@php
+    session()->forget('toast_msg');
+@endphp
+@endif
+
 <script>
     
 </script>

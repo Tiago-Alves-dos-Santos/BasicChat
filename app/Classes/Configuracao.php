@@ -177,5 +177,26 @@ class Configuracao
                 break;
         }
     }
+    public static function tipoToast($tipo)
+    {
+        switch ($tipo) {
+            case 'info':
+                return 0;
+                break;
+            case 'warning':
+                return 1;
+                break;
+            case 'error':
+                return 2;
+                break;
+            case 'success':
+                return 3;
+                break;
+
+            default:
+                throw new \Exception("Paramêtro 'tipo': $tipo, possui valor não reconhecido na função ");
+                break;
+        }
+    }
 
 }
