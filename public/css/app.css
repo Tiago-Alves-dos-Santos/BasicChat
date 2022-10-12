@@ -10205,6 +10205,13 @@ div#private_global_chat div.message div.content {
   border-radius: 5px;
   max-width: 45%;
 }
+div#private_global_chat div.message div.content div.message-status {
+  display: flex;
+  justify-content: flex-end;
+}
+div#private_global_chat div.message div.content div.message-status span.read i {
+  color: blue !important;
+}
 div#private_global_chat div.message-addressee {
   display: flex;
   justify-content: flex-start;

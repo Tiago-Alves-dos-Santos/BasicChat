@@ -30,6 +30,13 @@ div#private_global_chat{
             padding: 5px 10px;
             border-radius: 5px;
             max-width: 45%;
+            div.message-status{
+                display: flex;
+                justify-content: flex-end;
+                span.read i{
+                    color: blue !important;
+                }
+            }
             
         }
 

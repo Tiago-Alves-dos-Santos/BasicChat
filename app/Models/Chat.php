@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Chat extends Model
 {
@@ -17,4 +18,10 @@ class Chat extends Model
         'message',
         'status_message',
     ];
+
+    public function user_sender()
+    {
+        return $this->belongsTo(User::class, 'user_sender');
+    }
+
 }

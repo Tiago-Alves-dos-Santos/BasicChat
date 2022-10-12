@@ -22,9 +22,6 @@ class GrupoGlobalControl extends Controller
 
     public function sendMessage(Request $request)
     {
-        // return json_encode([
-        //     'data' => 'teste'
-        // ]);
         $result = [
             'error' => null,
             'message' => ''
@@ -44,7 +41,6 @@ class GrupoGlobalControl extends Controller
             $message = "<span style='color:black; text-transform:uppercase;'>$user_name</span> acabou de enviar messagem no grupo";
             //realtime notificação
             broadcast(new NotificationGroup($message));
-            $result['message'] = $group->message;
         } catch (\Exception $e) {
             $result['error'] = $e->getMessage();
         }

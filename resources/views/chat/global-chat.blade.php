@@ -112,8 +112,6 @@
         chatText.on('key', function(e){
             enviarMessage(e);
         })
-
-
         function realtimeMessage(){
             window.Echo.channel("grupo.global")
             .listen('GroupGlobal', (e) => {
@@ -128,7 +126,7 @@
                     }
             })
         }
-
+        
         realtimeMessage();
     });
 </script>
