@@ -13,7 +13,12 @@ class UserControl extends Controller
 {
     public function index(Request $request)
     {
-        return view('login');
+        if(Auth::check()){
+            return redirect()->route('view.user.lista');
+        }else{
+            return view('login');
+        }
+        
     }
 
     public function viewCadastro(Request $request)
@@ -47,8 +52,19 @@ class UserControl extends Controller
                 'login' => $login,
                 'password' => Hash::make('teste')
             ]);
-            $retorno = User::login($user->login);
-            return redirect()->route('view.user.lista');
+            if(!Auth::check()){
+                $retorno = User::login($user->login);
+                return redirect()->route('view.user.lista');
+            }else{
+                session([
+                    'alert_msg' => [
+                        'title' => 'Sucesso!',
+                        'data' => 'Usuário cadastrado com sucesso',
+                        'type' => Configuracao::tipoAlerta('success')
+                    ]
+                ]);
+                return redirect()->back();
+            }
         }else{//login existente
             session([
                 'alert_msg' => [

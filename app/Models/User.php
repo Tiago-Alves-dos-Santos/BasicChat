@@ -57,6 +57,7 @@ class User extends Authenticatable
         ];
         if(User::where('login', $login)->exists()){
             $user = User::where('login', $login)->first();
+            
             if(!SessionDB::sessionActive($user->id)){
                 Auth::login($user);
                 //retorno de sucesso
