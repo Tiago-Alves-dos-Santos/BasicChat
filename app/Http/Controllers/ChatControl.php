@@ -17,6 +17,7 @@ class ChatControl extends Controller
 
         //marcar msg como lidas qnd entrar
         Chat::readMessageUsers(Auth::id(), $user->id);
+        broadcast(new MessageRead($user->id, Auth::id()));
         //buscar mensagens de remetente e destinatario
         $messages = Chat::where(function($q) use ($user){
             $q->where('user_sender', Auth::id());

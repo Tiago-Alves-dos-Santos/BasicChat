@@ -13,7 +13,7 @@
 
                     @if ($value->user_sender == Auth::id())
                     <div class="message-status">
-                        <span class="@if ($value->status_message == 'read') read @else not-read @endif"><i class="fa-sharp fa-solid fa-check-double"></i></span>
+                        <span class="isRead @if ($value->status_message == 'read') read @else not-read @endif"><i class="fa-sharp fa-solid fa-check-double"></i></span>
                     </div>
                     @endif
                 </div>
@@ -54,7 +54,7 @@
                 '             <div class="content">'+
                 '                 <p>'+message+'</p>'+
                 '                <div class="message-status">'+
-                '                   <span class="not-read"><i class="fa-sharp fa-solid fa-check-double"></i></span>'+
+                '                   <span class="isRead not-read"><i class="fa-sharp fa-solid fa-check-double"></i></span>'+
                 '                </div>'+
                 '             </div>'+
                 '         </div>';
@@ -68,7 +68,7 @@
                 '             <div class="content">'+
                 '                 <p>'+message+'</p>'+
                 '                <div class="message-status">'+
-                '                   <span class="not-read"><i class="fa-sharp fa-solid fa-check-double"></i></span>'+
+                '                   <span class="isRead not-read"><i class="fa-sharp fa-solid fa-check-double"></i></span>'+
                 '                </div>'+
                 '             </div>'+
                 '         </div>';
@@ -167,12 +167,14 @@
         
         realtimeMessage();
 
+
         function messageReadsListen(){
             window.Echo.private("chat.messageRead.{{Auth::id()}}")
             .listen('Chat\\MessageRead', (e) => {
-                    console.log(e);
-
+                    // console.log(e);
                     //mudar mensagens para lidas
+                    $("span.isRead").removeClass('not-read');
+                    $("span.isRead").addClass('read');
 
             })
         }
