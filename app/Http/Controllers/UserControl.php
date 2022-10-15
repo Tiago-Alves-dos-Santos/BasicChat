@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Configuracao;
+use App\Events\Online;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +13,12 @@ class UserControl extends Controller
 {
     public function index(Request $request)
     {
-        return view('login');
+        if(Auth::check()){
+            return redirect()->route('view.user.lista');
+        }else{
+            return view('login');
+        }
+        
     }
 
     public function viewCadastro(Request $request)
@@ -46,8 +52,19 @@ class UserControl extends Controller
                 'login' => $login,
                 'password' => Hash::make('teste')
             ]);
-            $retorno = User::login($user->login);
-            return redirect()->route('view.user.lista');
+            if(!Auth::check()){
+                $retorno = User::login($user->login);
+                return redirect()->route('view.user.lista');
+            }else{
+                session([
+                    'alert_msg' => [
+                        'title' => 'Sucesso!',
+                        'data' => 'Usuário cadastrado com sucesso',
+                        'type' => Configuracao::tipoAlerta('success')
+                    ]
+                ]);
+                return redirect()->back();
+            }
         }else{//login existente
             session([
                 'alert_msg' => [
@@ -70,6 +87,10 @@ class UserControl extends Controller
         $retorno = User::login($login);
         // dd($retorno);
         if($retorno->login){
+            User::where('id', $retorno->user->id)->update([
+                'online' => 'Y'
+            ]);
+            broadcast(new Online($retorno->user->id, 'Y'));
             return redirect()->route('view.user.lista');
         }else{//login existente
             session([
@@ -85,6 +106,10 @@ class UserControl extends Controller
 
     public function logout()
     {
+        User::where('id', Auth::id())->update([
+            'online' => 'N'
+        ]);
+        broadcast(new Online(Auth::id(), 'N'));
         session()->flush();
         return redirect()->route('view.user.login');
     }

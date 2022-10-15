@@ -22,7 +22,25 @@
         </div>
         <div class="contents">
             <div class="title shadow">
-                <h2>{{$title_page}} @if(!empty($user)) - {{$user->name}} @endif</h2>
+                <h2>
+                    {{$title_page}} 
+                    @if(!empty($user)) 
+                    - {{$user->name}}
+                        <div id="user-chat-online-{{$user->id}}">
+                            @switch($user->online)
+                                @case('Y')
+                                <span class="badge bg-success">Online</span>
+                                    @break
+                                @case('N')
+                                <span class="badge bg-danger">Offline</span>
+                                    @break
+                                @default
+                                    
+                            @endswitch
+                        </div>
+                        
+                    @endif
+                </h2>
             </div>
             <div class="body">
                 @yield('content')
@@ -47,6 +65,20 @@
             }
 
             isNotPageGroupExecute(messageGroupAlert);
+            function onlineListen(){
+                window.Echo.channel("online.listen")
+                    .listen('Online', (e) => {
+                        // console.log(e);
+                        if(e.online){
+                            $("#user-online-"+e.user_id).html('<span class="badge bg-success">Online</span>');
+                            $("#user-chat-online-"+e.user_id).html('<span class="badge bg-success">Online</span>');
+                        }else{
+                            $("#user-online-"+e.user_id).html('<span class="badge bg-danger">Offline</span>');
+                            $("#user-chat-online-"+e.user_id).html('<span class="badge bg-danger">Offline</span>');
+                        }
+                    })
+            }
+            onlineListen();
         });
     </script>
     @include('includes.footer')

@@ -57,10 +57,18 @@ class User extends Authenticatable
         ];
         if(User::where('login', $login)->exists()){
             $user = User::where('login', $login)->first();
-            Auth::login($user);
-            //retorno de sucesso
-            $retorno['login'] = true;
-            $retorno['user'] = $user;
+            
+            if(!SessionDB::sessionActive($user->id)){
+                Auth::login($user);
+                //retorno de sucesso
+                $retorno['login'] = true;
+                $retorno['user'] = $user;
+            }else{//usuario já logado
+                $retorno['alert']['title'] = 'Usuário já conectado!';
+                $retorno['alert']['data'] = 'Tente novamente mais tarde!';
+                $retorno['alert']['type'] = Configuracao::tipoAlerta('error');
+            }
+            
         }else{//login inexistente
             $retorno['alert']['title'] = 'Login inexistente!';
             $retorno['alert']['data'] = 'Realize o cadastro para fazer login!';
