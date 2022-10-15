@@ -66,10 +66,13 @@
 
         function addMessageSent(message){
             let html = '<div class="message message-sender mt-1">'+
-            '             <div class="content">'+
-            '                 <p>'+message+'</p>'+
-            '             </div>'+
-            '         </div>';
+                '             <div class="content">'+
+                '                 <p>'+message+'</p>'+
+                '                <div class="message-status">'+
+                '                   <span class="not-read"><i class="fa-sharp fa-solid fa-check-double"></i></span>'+
+                '                </div>'+
+                '             </div>'+
+                '         </div>';
 
             $('.chat-content').append(html);
         }
@@ -79,15 +82,15 @@
                 html = '<div class="message message-sender mt-1">'+
                 '             <div class="content">'+
                 '                 <p>'+message+'</p>'+
+                '                <div class="message-status">'+
+                '                   <span class="not-read"><i class="fa-sharp fa-solid fa-check-double"></i></span>'+
+                '                </div>'+
                 '             </div>'+
                 '         </div>';
             }else{
                 html = '<div class="message message-addressee mt-1">'+
                 '             <div class="content">'+
                 '                 <p>'+message+'</p>'+
-                '                <div class="message-status">'+
-                '                   <span class="not-read"><i class="fa-sharp fa-solid fa-check-double"></i></span>'+
-                '                </div>'+
                 '             </div>'+
                 '         </div>';
             }
@@ -108,7 +111,10 @@
                         'user_addressee': "{{$user->id}}"
                     },
                     beforeSend: function(e){
-                        CKEDITOR.instances['send_message'].setData('');
+                        if(chat_mesage){
+                            addMessageSent(chat_mesage);
+                        }
+                        CKEDITOR.instances['send_message'].setData('');  
                     },
                     complete: function(e){
                         // alert('Messagem enviada com sucesso');
@@ -134,16 +140,16 @@
             window.Echo.private("chat.user.{{Auth::id()}}")
             .listen('ChatEvent', (e) => {
                     console.log(e);
-                    // let sender = e.user_sender;
-                    // let adressee = e.user_adressee;
-                    // let message = e.message;
-                    // let status_message = e.status_message;
+                    let sender = e.user_sender;
+                    let adressee = e.user_adressee;
+                    let message = e.message;
+                    let status_message = e.status_message;
 
-                    // if(sender == auth_id){//enviando
-                    //     addMessage(message, true);
-                    // }else{//recebendo
-                    //     addMessage(message, false);
-                    // }
+                    if(sender == auth_id){//enviando
+                        addMessage(message, true);
+                    }else{//recebendo
+                        addMessage(message, false);
+                    }
             })
         }
         
