@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\ChatEvent;
+use App\Events\Teste;
 use App\Models\Chat;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -18,8 +19,6 @@ class ChatControl extends Controller
         $messages = Chat::where(function($q) use ($user){
             $q->where('user_sender', Auth::id());
             $q->where('user_addressee', $user->id);
-            // $q->where('user_addressee', Auth::id());
-            // $q->where('user_sender', $user->id);
         })
         ->orWhere(function($q) use ($user){
             $q->where('user_addressee', Auth::id());
@@ -59,6 +58,7 @@ class ChatControl extends Controller
                 $chat->message,
                 $chat->status_message
             ));
+
         } catch (\Exception $e) {
             $result['error'] = $e->getMessage();
         }

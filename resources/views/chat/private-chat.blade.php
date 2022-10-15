@@ -131,23 +131,25 @@
         })
 
         function realtimeMessage(){
-            window.Echo.channel("chat.user."+auth_id)
+            window.Echo.private("chat.user.{{Auth::id()}}")
             .listen('ChatEvent', (e) => {
                     console.log(e);
-                    let sender = e.user_sender;
-                    let adressee = e.user_adressee;
-                    let message = e.message;
-                    let status_message = e.status_message;
+                    // let sender = e.user_sender;
+                    // let adressee = e.user_adressee;
+                    // let message = e.message;
+                    // let status_message = e.status_message;
 
-                    if(sender == auth_id){//enviando
-                        addMessage(message, true);
-                    }else{//recebendo
-                        addMessage(message, false);
-                    }
+                    // if(sender == auth_id){//enviando
+                    //     addMessage(message, true);
+                    // }else{//recebendo
+                    //     addMessage(message, false);
+                    // }
             })
         }
         
         realtimeMessage();
+
+        
     });
 </script>
 @endpush

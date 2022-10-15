@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ChatEvent
+class ChatEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $message = '';
@@ -24,7 +24,7 @@ class ChatEvent
      */
     public function __construct($user_sender, $user_adressee, $message, $status = '')
     {
-        $this->user_sender = $user_adressee;
+        $this->user_sender = $user_sender;
         $this->user_adressee = $user_adressee;
         $this->message = $message;
         $this->status = $status;
@@ -48,5 +48,10 @@ class ChatEvent
             'message' => $this->message,
             'status' => $this->status
         ];
+    }
+
+    public function boradcastAs()
+    {
+        return 'chat.event';
     }
 }
