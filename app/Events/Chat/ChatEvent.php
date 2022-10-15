@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace App\Events\Chat;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -50,8 +50,8 @@ class ChatEvent implements ShouldBroadcast
         ];
     }
 
-    public function boradcastAs()
-    {
-        return 'chat.event';
-    }
+    // public function boradcastAs()
+    // {
+    //     return 'chat.event';
+    // }
 }

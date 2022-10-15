@@ -20,21 +20,6 @@
             </div>
             
         @endforeach
-        {{-- <div class="message message-addressee">
-            <div class="content">
-                <p>Olá! Sou a mensagem de quem ta enviando</p>
-            </div>
-
-            
-        </div>
-        <div class="message message-sender">
-            <div class="content">
-                <p>Olá! Sou a mensagem de quem ta recebendo</p>
-                <div class="message-status">
-                    <span class="read"><i class="fa-sharp fa-solid fa-check-double"></i></span>
-                </div>
-            </div>
-        </div> --}}
 
     </div>
     <div class="row mt-5">
@@ -112,7 +97,7 @@
                     },
                     beforeSend: function(e){
                         if(chat_mesage){
-                            addMessageSent(chat_mesage);
+                            addMessage(chat_mesage, true);
                         }
                         CKEDITOR.instances['send_message'].setData('');  
                     },
@@ -136,24 +121,69 @@
             enviarMessage(e);
         })
 
+        function messageReads(user_sender, user_addressee){
+            $.ajax({
+                type: 'POST',
+                url:"{{route('control.chat.messageRead')}}",
+                data:{
+                    "_token": "{{ csrf_token() }}",
+                    'user_sender': user_sender,
+                    'user_addressee': user_addressee
+                },
+                beforeSend: function(e){
+ 
+                },
+                complete: function(e){
+                    // alert('Messagem enviada com sucesso');
+                },
+                success: function (e) { //mensagens lidas
+                    console.log('sucesso',e)
+                }
+            });
+        }
+
+
         function realtimeMessage(){
             window.Echo.private("chat.user.{{Auth::id()}}")
-            .listen('ChatEvent', (e) => {
-                    console.log(e);
+            .listen('Chat\\ChatEvent', (e) => {
+                    // console.log(e);
                     let sender = e.user_sender;
                     let adressee = e.user_adressee;
                     let message = e.message;
                     let status_message = e.status_message;
 
-                    if(sender == auth_id){//enviando
-                        addMessage(message, true);
-                    }else{//recebendo
+                    if(sender != auth_id){//recebendo, usuario destinatario
                         addMessage(message, false);
+                    }
+
+                    if(!document.hidden){
+                        console.log('lida');
+                        //fazer request para mensagem lida, usuario sender receber
+                        messageReads(e.user_sender, e.user_adressee);
+                        
                     }
             })
         }
         
         realtimeMessage();
+
+        function messageReadsListen(){
+            window.Echo.private("chat.messageRead.{{Auth::id()}}")
+            .listen('Chat\\MessageRead', (e) => {
+                    console.log(e);
+
+            })
+        }
+
+
+        //não funciona ao iniciar a pagina
+        document.addEventListener("visibilitychange",()=>{
+            // console.log(document.visibilityState);
+           if(document.visibilityState==="visible"){
+                console.log(" >> This window is visible")
+                // fazer request e mudar as mensagens não lidas
+           }
+       })
 
         
     });

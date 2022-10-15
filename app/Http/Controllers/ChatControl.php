@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\ChatEvent;
-use App\Events\Teste;
+use App\Events\Chat\ChatEvent;
 use App\Models\Chat;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,6 +15,8 @@ class ChatControl extends Controller
         $user = User::find(base64_decode($request->user_id));
 
         //marcar msg como lidas qnd entrar
+        Chat::readMessageUsers(Auth::id(), $user->id);
+        //buscar mensagens de remetente e destinatario
         $messages = Chat::where(function($q) use ($user){
             $q->where('user_sender', Auth::id());
             $q->where('user_addressee', $user->id);
@@ -65,5 +66,21 @@ class ChatControl extends Controller
         return json_encode($result);
 
 
+    }
+
+
+    public function messageRead(Request $request)
+    {
+        $user_sender = $request->user_sender;
+        $user_addressee = $request->user_addressee;
+        Chat::readMessageUsers($request->user_sender, $request->user_addressee);
+
+        //evento mensagens lidas
+        return [
+            'data' => 'teste ajax control',
+            'user_sender' => $user_sender,
+            'user_addressee' => $user_addressee
+        ];
+        
     }
 }

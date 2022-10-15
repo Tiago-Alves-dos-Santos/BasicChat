@@ -22,3 +22,6 @@ Broadcast::channel('chat.user.{id}', function ($user,$id) {
     // return (int) Auth::id() === (int) $id;
     return true;
 });
+Broadcast::channel('chat.messageRead.{user_sender}', function ($user,$user_sender) {
+    return true;
+});
