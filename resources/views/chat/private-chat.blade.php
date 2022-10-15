@@ -188,6 +188,8 @@
            if(document.visibilityState==="visible"){
                 console.log(" >> This window is visible")
                 // fazer request e mudar as mensagens não lidas
+                messageReads("{{$user->id}}", "{{Auth::id()}}");
+                
            }
        })
 
