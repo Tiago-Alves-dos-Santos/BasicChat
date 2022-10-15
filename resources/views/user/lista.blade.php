@@ -28,9 +28,9 @@
             <div class="col-md-4 text-center align-self-center">
                 <h5>{{$value->name}}</h5>
             </div>
-            <div class="col-md-4 text-end align-self-center">
+            <div class="col-md-4 text-end align-self-center" id="user-online-{{$value->id}}">
                 @switch($value->online)
-                    @case('S')
+                    @case('Y')
                     <span class="badge bg-success">Online</span>
                         @break
                     @case('N')
@@ -63,6 +63,8 @@
         });
     }
     chatPrivate();
+
+    
 </script>
 @endpush
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Configuracao;
+use App\Events\Online;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -70,6 +71,10 @@ class UserControl extends Controller
         $retorno = User::login($login);
         // dd($retorno);
         if($retorno->login){
+            User::where('id', $retorno->user->id)->update([
+                'online' => 'Y'
+            ]);
+            broadcast(new Online($retorno->user->id, 'Y'));
             return redirect()->route('view.user.lista');
         }else{//login existente
             session([
@@ -85,6 +90,10 @@ class UserControl extends Controller
 
     public function logout()
     {
+        User::where('id', Auth::id())->update([
+            'online' => 'N'
+        ]);
+        broadcast(new Online(Auth::id(), 'N'));
         session()->flush();
         return redirect()->route('view.user.login');
     }
