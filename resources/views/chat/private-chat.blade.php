@@ -137,7 +137,7 @@
                     // alert('Messagem enviada com sucesso');
                 },
                 success: function (e) { //mensagens lidas
-                    console.log('sucesso',e)
+                    // console.log('sucesso',e)
                 }
             });
         }
@@ -157,7 +157,7 @@
                     }
 
                     if(!document.hidden){
-                        console.log('lida');
+                        // console.log('lida');
                         //fazer request para mensagem lida, usuario sender receber
                         messageReads(e.user_sender, e.user_adressee);
                         
@@ -172,8 +172,12 @@
             .listen('Chat\\MessageRead', (e) => {
                     console.log(e);
 
+                    //mudar mensagens para lidas
+
             })
         }
+
+        messageReadsListen();
 
 
         //não funciona ao iniciar a pagina

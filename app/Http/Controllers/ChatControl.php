@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\Chat\ChatEvent;
+use App\Events\Chat\MessageRead;
 use App\Models\Chat;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -74,13 +75,7 @@ class ChatControl extends Controller
         $user_sender = $request->user_sender;
         $user_addressee = $request->user_addressee;
         Chat::readMessageUsers($request->user_sender, $request->user_addressee);
-
         //evento mensagens lidas
-        return [
-            'data' => 'teste ajax control',
-            'user_sender' => $user_sender,
-            'user_addressee' => $user_addressee
-        ];
-        
+        broadcast(new MessageRead($user_sender, $user_addressee));
     }
 }
