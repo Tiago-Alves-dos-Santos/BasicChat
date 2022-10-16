@@ -23,7 +23,7 @@ Route::get('/listagem', [UserControl::class, 'viewLista'])->name('view.user.list
 Route::post('/cadastrar', [UserControl::class, 'cadastrar'])->name('control.user.cadastrar');
 
 Route::post('/login', [UserControl::class, 'login'])->name('control.user.login');
-Route::get('/logout', [UserControl::class, 'logout'])->name('control.user.logout');
+Route::get('/logout/{motivo?}', [UserControl::class, 'logout'])->name('control.user.logout');
 
 //chat
 Route::get('/private/{user_id}', [ChatControl::class, 'index'])->name('view.chat.index');

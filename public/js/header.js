@@ -95,6 +95,28 @@ function showQuestionYesNo(title,question_data, callback,color='dark'){
         }
     });
 }
+
+function showQuestionYesNoCallbackNo(title,question_data, callback,color='dark'){
+    $.confirm({
+        title: title,
+        content: question_data,
+        type: color,
+        typeAnimated: true,
+        buttons: {
+            Sim: {
+                text: 'SIM',
+                btnClass: 'btn-'+color,
+                action: () => {
+
+                }
+            },
+            Nao: {
+                text: 'NÃO',
+                action: callback
+            },
+        }
+    });
+}
 /************************TOASTS*****************************/
 function tipoToast(tipo){ 
     switch (tipo) {
@@ -130,7 +152,8 @@ function showToast(title, data, type){
 function semEspaco(element) {
     element.value = element.value.replace(/[^a-zA-Z0-9]/g,'');
 }
-//footer
+
+
 // $(function(){
 //     $('.mask-money').mask('000.000.000,00', {reverse:true});
 // });

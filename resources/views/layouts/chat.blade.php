@@ -17,7 +17,7 @@
                 <a href="{{route('control.user.logout')}}" class="logout">Sair</a>
             </div>
             <div class="info-user">
-                <h6>{{Auth::user()->name}}</h6>
+                <h6>{{Auth::user()->name}} <span id="timer"></span></h6>
             </div>
         </div>
         <div class="contents">
@@ -79,6 +79,33 @@
                     })
             }
             onlineListen();
+
+
+            const inactivityTime = function () {
+                let time;
+                let cont = 0;
+                // reset timer
+                window.onload = resetTimer;//pagina aberta ou recarregada
+                //movimentação do mouse
+                document.onmousemove = resetTimer;
+                document.onkeydown = resetTimer;
+                display = $('#timer'); // selecionando o timer
+                function logout() {
+                    window.location.href = "{{route('control.user.logout',['motivo' => 'inatividade'])}}";
+                }
+                function resetTimer() {
+                    clearTimeout(time);
+                    //tempo de inatividade em segundos
+                    let minuto = 60;
+                    let inatividade_time =  (minuto * 60) * 1000;
+
+                    time = setTimeout(logout, inatividade_time)
+                }
+            };
+
+            inactivityTime();
+
+            
         });
     </script>
     @include('includes.footer')

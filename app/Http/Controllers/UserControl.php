@@ -54,6 +54,12 @@ class UserControl extends Controller
             ]);
             if(!Auth::check()){
                 $retorno = User::login($user->login);
+                if($retorno->login){
+                    User::where('id', $retorno->user->id)->update([
+                        'online' => 'Y'
+                    ]);
+                    broadcast(new Online($retorno->user->id, 'Y'));
+                }
                 return redirect()->route('view.user.lista');
             }else{
                 session([
@@ -104,13 +110,23 @@ class UserControl extends Controller
         }
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
+        $motivo = $request->motivo ?? null;
         User::where('id', Auth::id())->update([
             'online' => 'N'
         ]);
         broadcast(new Online(Auth::id(), 'N'));
         session()->flush();
+        if(!empty($motivo) && $motivo === 'inatividade'){
+            session([
+                'alert_msg' => [
+                    'title' => 'Expulso da sessão!',
+                    'data' => 'Você ficou 1 hora inativo',
+                    'type' => Configuracao::tipoAlerta('warning')
+                ]
+            ]);
+        }
         return redirect()->route('view.user.login');
     }
 }
