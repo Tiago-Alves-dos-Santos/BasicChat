@@ -27,7 +27,8 @@ div#chat-page{
     div.sidebar{
         position: absolute;
         width: $cpg_sidebar_width;
-        height: 100%;
+        min-height: 100%;
+        height: auto;
         background-color: $cpg_sidebar_color;
         div.link-container{
             a{

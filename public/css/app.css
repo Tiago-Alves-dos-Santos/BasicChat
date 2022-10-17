@@ -10288,7 +10288,8 @@ div#chat-page {
 div#chat-page div.sidebar {
   position: absolute;
   width: 300px;
-  height: 100%;
+  min-height: 100%;
+  height: auto;
   background-color: #C8CEDE;
 }
 div#chat-page div.sidebar div.link-container a {

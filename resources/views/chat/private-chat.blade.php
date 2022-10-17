@@ -39,9 +39,6 @@
 @push('scripts')
 <script>
     $(function(){
-        
-        let height_screen = screen.height - 690;
-        $(".chat-content").css('max-height', height_screen);
         chatText = CKEDITOR.replace('send_message');
 
         //id do usuario logado

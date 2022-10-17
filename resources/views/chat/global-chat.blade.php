@@ -30,8 +30,6 @@
 @push('scripts')
 <script>
     $(function(){
-        let height_screen = screen.height - 610;
-        $(".chat-content").css('max-height', height_screen);
 
         //id do usuario logado
         let auth_id = "{{Auth::id()}}";
