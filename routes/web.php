@@ -23,7 +23,7 @@ Route::get('/listagem', [UserControl::class, 'viewLista'])->name('view.user.list
 Route::post('/cadastrar', [UserControl::class, 'cadastrar'])->name('control.user.cadastrar');
 
 Route::post('/login', [UserControl::class, 'login'])->name('control.user.login');
-Route::get('/logout', [UserControl::class, 'logout'])->name('control.user.logout');
+Route::get('/logout/{motivo?}', [UserControl::class, 'logout'])->name('control.user.logout');
 
 //chat
 Route::get('/private/{user_id}', [ChatControl::class, 'index'])->name('view.chat.index');
@@ -34,3 +34,6 @@ Route::post('/chat/ler-mensagens', [ChatControl::class, 'messageRead'])->name('c
 Route::get('/grupo', [GrupoGlobalControl::class, 'index'])->name('view.grupo-global.index');
 Route::post('/grupo/enviar-messagem', [GrupoGlobalControl::class, 'sendMessage'])->name('control.grupo-global.sendMessage');
 
+
+//verficar contato com mensagens nãi lidas
+Route::get('/messages/not-read/', [UserControl::class, 'getMessagesNotReadCounter'])->name('control.user.getMessagesNotReadCounter');

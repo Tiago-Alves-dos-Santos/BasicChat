@@ -17,11 +17,17 @@
                 <a href="{{route('control.user.logout')}}" class="logout">Sair</a>
             </div>
             <div class="info-user">
-                <h6>{{Auth::user()->name}}</h6>
+                <h6>{{Auth::user()->name}} <span id="timer"></span></h6>
             </div>
         </div>
         <div class="contents">
             <div class="title shadow">
+                <div class="menu-mobile">
+                    <a href="#" id="toogle-sidebar">
+                        <i class="fa-sharp fa-solid fa-bars"></i>
+                    </a>
+                </div>
+
                 <h2>
                     {{$title_page}} 
                     @if(!empty($user)) 
@@ -50,10 +56,10 @@
     @stack('scripts')
     <script>
         $(function(){
-            function isNotPageGroupExecute(function_callback){
+            function isNotPageExecute(function_callback, page_not_execute){
                 let page_actual = $("body").data('page');
 
-                if(page_actual != 'grupo_global'){
+                if(page_actual != page_not_execute){
                     function_callback();
                 }
             }
@@ -64,7 +70,7 @@
                 })
             }
 
-            isNotPageGroupExecute(messageGroupAlert);
+            isNotPageExecute(messageGroupAlert ,'grupo_global');
             function onlineListen(){
                 window.Echo.channel("online.listen")
                     .listen('Online', (e) => {
@@ -79,6 +85,64 @@
                     })
             }
             onlineListen();
+
+
+            const inactivityTime = function () {
+                let time;
+                let cont = 0;
+                // reset timer
+                window.onload = resetTimer;//pagina aberta ou recarregada
+                //movimentação do mouse
+                document.onmousemove = resetTimer;
+                document.onkeydown = resetTimer;
+                display = $('#timer'); // selecionando o timer
+                function logout() {
+                    window.location.href = "{{route('control.user.logout',['motivo' => 'inatividade'])}}";
+                }
+                function resetTimer() {
+                    clearTimeout(time);
+                    //tempo de inatividade em segundos
+                    let minuto = 60;
+                    let inatividade_time =  (minuto * 60) * 1000;
+
+                    time = setTimeout(logout, inatividade_time)
+                }
+            };
+
+            inactivityTime();
+
+            function toggleSidebar(){
+                $("#toogle-sidebar").on('click', function(e){
+                    e.preventDefault();
+                    let left = $("#chat-page div.sidebar").css('left');
+                    let width = $("#chat-page div.sidebar").css('width');
+                    left = left.replace("px","");
+                    width = width.replace("px","");
+                    let icon = "";
+                    if(left < 0){//mostrar sidebar
+                        left *= -1;
+                        $("#chat-page div.sidebar").css('left', 0);
+                        $("#chat-page div.contents").css('width', 'calc(100% -'+left+'px)');
+                        $("#chat-page div.contents").css('left', left+'px');
+                        icon = '<i class="fa-solid fa-xmark"></i>';
+                    }else{//esconder sidebaer
+                        left = width * -1;
+                        $("#chat-page div.sidebar").css('left', left+'px');
+                        $("#chat-page div.contents").css('width', '100%');
+                        $("#chat-page div.contents").css('left', '0px');
+                        icon = '<i class="fa-sharp fa-solid fa-bars"></i>';
+                    }
+
+                    $(this).html(icon);
+                });
+            }
+            toggleSidebar();
+            function endScrollChat(){
+                div = $('div.chat-content')[0];
+                div.scrollTop = div.scrollHeight;
+            }
+
+            isNotPageExecute(endScroll ,'contatos');
         });
     </script>
     @include('includes.footer')

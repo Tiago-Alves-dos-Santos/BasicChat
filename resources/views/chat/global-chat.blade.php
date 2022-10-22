@@ -7,7 +7,7 @@
     <div class="chat-content">
         
         @foreach ($messages as $value)
-            <div class="message @if ($value->user_id == Auth::id()) message-sender @else message-addressee @endif mt-1">
+            <div class="message @if ($value->user_id == Auth::id()) message-sender @else message-addressee @endif mt-1 mb-1">
                 <div class="content">
                     @if ($value->user_id != Auth::id())
                     <h6>{{$value->user->name}}</h6>
@@ -30,8 +30,6 @@
 @push('scripts')
 <script>
     $(function(){
-        let height_screen = screen.height - 610;
-        $(".chat-content").css('max-height', height_screen);
 
         //id do usuario logado
         let auth_id = "{{Auth::id()}}";
@@ -41,7 +39,7 @@
 
 
         function addMessageSent(message){
-            let html = '<div class="message message-sender mt-1">'+
+            let html = '<div class="message message-sender mt-1 mb-1">'+
             '             <div class="content">'+
             '                 <p>'+message+'</p>'+
             '             </div>'+
@@ -52,13 +50,13 @@
         function addMessage(message, sender, user_name = ''){
             let html = '';
             if(sender){
-                html = '<div class="message message-sender mt-1">'+
+                html = '<div class="message message-sender mt-1 mb-1">'+
                 '             <div class="content">'+
                 '                 <p>'+message+'</p>'+
                 '             </div>'+
                 '         </div>';
             }else{
-                html = '<div class="message message-addressee mt-1">'+
+                html = '<div class="message message-addressee mt-1 mb-1">'+
                 '             <div class="content">'+
                 '    <h6>'+user_name+'</h6>'+
                 '                 <p>'+message+'</p>'+
@@ -124,6 +122,7 @@
                     }else{//recebendo
                         addMessage(message, false, name);
                     }
+                    endScroll($('div.chat-content'));
             })
         }
         

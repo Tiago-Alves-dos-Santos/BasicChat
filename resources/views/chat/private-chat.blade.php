@@ -7,7 +7,7 @@
     <div class="chat-content">
 
         @foreach ($messages as $value)
-            <div class="message @if ($value->user_sender == Auth::id()) message-sender @else message-addressee @endif mt-1">
+            <div class="message @if ($value->user_sender == Auth::id()) message-sender @else message-addressee @endif mt-1 mb-1">
                 <div class="content">
                     <?= htmlspecialchars_decode($value->message) ?>
 
@@ -39,9 +39,6 @@
 @push('scripts')
 <script>
     $(function(){
-        
-        let height_screen = screen.height - 690;
-        $(".chat-content").css('max-height', height_screen);
         chatText = CKEDITOR.replace('send_message');
 
         //id do usuario logado
@@ -50,7 +47,7 @@
 
 
         function addMessageSent(message){
-            let html = '<div class="message message-sender mt-1">'+
+            let html = '<div class="message message-sender mt-1 mb-1">'+
                 '             <div class="content">'+
                 '                 <p>'+message+'</p>'+
                 '                <div class="message-status">'+
@@ -64,7 +61,7 @@
         function addMessage(message, sender){
             let html = '';
             if(sender){
-                html = '<div class="message message-sender mt-1">'+
+                html = '<div class="message message-sender mt-1 mb-1">'+
                 '             <div class="content">'+
                 '                 <p>'+message+'</p>'+
                 '                <div class="message-status">'+
@@ -73,7 +70,7 @@
                 '             </div>'+
                 '         </div>';
             }else{
-                html = '<div class="message message-addressee mt-1">'+
+                html = '<div class="message message-addressee mt-1 mb-1">'+
                 '             <div class="content">'+
                 '                 <p>'+message+'</p>'+
                 '             </div>'+
@@ -98,11 +95,13 @@
                     beforeSend: function(e){
                         if(chat_mesage){
                             addMessage(chat_mesage, true);
+                            endScroll($('div.chat-content'));
                         }
                         CKEDITOR.instances['send_message'].setData('');  
                     },
                     complete: function(e){
                         // alert('Messagem enviada com sucesso');
+                        messagesNotRead("{{$user->id}}");
                     },
                     success: function (e) {
                         // console.log('sucesso',e);
@@ -142,6 +141,25 @@
             });
         }
 
+        function messagesNotRead(user_addressee){
+            $.ajax({
+                type: 'GET',
+                url:"{{route('control.user.getMessagesNotReadCounter')}}",
+                data:{
+                    'user_id': user_addressee
+                },
+                beforeSend: function(e){
+ 
+                },
+                complete: function(e){
+                    // alert('Messagem enviada com sucesso');
+                },
+                success: function (e) { //mensagens lidas
+                    console.log('sucesso',e)
+                }
+            });
+        }
+
 
         function realtimeMessage(){
             window.Echo.private("chat.user.{{Auth::id()}}")
@@ -154,6 +172,7 @@
 
                     if(sender != auth_id){//recebendo, usuario destinatario
                         addMessage(message, false);
+                        endScroll($('div.chat-content'));
                     }
 
                     if(!document.hidden){

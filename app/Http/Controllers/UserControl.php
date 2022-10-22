@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Configuracao;
+use App\Events\Chat\MessageNotRead;
 use App\Events\Online;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -36,6 +37,25 @@ class UserControl extends Controller
         ));
     }
 
+    public function getMessagesNotReadCounter(Request $request)
+    {
+        $user_id = $request->user_id;
+        
+        $user = User::find(Auth::user()->id);
+
+        $user_addressee = User::find($user_id);
+        $messages_count = $user->getMessagesNotReadCount($user_addressee);
+        if($messages_count > 0){//tem mensagens não lidas
+            //evento realtime aq
+            broadcast(new MessageNotRead($user_addressee->id, $messages_count, $user->id));
+        }
+        return [
+            // 'user_id' => $user_id,
+            // 'user' => $user,
+            // 'count_messages_notRead' => $user->getMessagesNotReadCount($user2)
+        ];
+    }
+
     public function cadastrar(Request $request)
     {
         $validate = $request->validate([
@@ -54,6 +74,12 @@ class UserControl extends Controller
             ]);
             if(!Auth::check()){
                 $retorno = User::login($user->login);
+                if($retorno->login){
+                    User::where('id', $retorno->user->id)->update([
+                        'online' => 'Y'
+                    ]);
+                    broadcast(new Online($retorno->user->id, 'Y'));
+                }
                 return redirect()->route('view.user.lista');
             }else{
                 session([
@@ -104,13 +130,24 @@ class UserControl extends Controller
         }
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
+        $motivo = $request->motivo ?? null;
         User::where('id', Auth::id())->update([
             'online' => 'N'
         ]);
         broadcast(new Online(Auth::id(), 'N'));
+        Auth::logout();
         session()->flush();
+        if(!empty($motivo) && $motivo === 'inatividade'){
+            session([
+                'alert_msg' => [
+                    'title' => 'Expulso da sessão!',
+                    'data' => 'Você ficou 1 hora inativo',
+                    'type' => Configuracao::tipoAlerta('warning')
+                ]
+            ]);
+        }
         return redirect()->route('view.user.login');
     }
 }

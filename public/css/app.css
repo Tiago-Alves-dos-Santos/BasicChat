@@ -10172,6 +10172,14 @@ div {
   box-sizing: border-box;
 }
 
+@keyframes blink_color_sidebar {
+  0% {
+    background-color: blueviolet;
+  }
+  100% {
+    background-color: white;
+  }
+}
 /******************************CONTATOS**********************/
 div#contatos {
   width: 100%;
@@ -10190,6 +10198,13 @@ div#contatos div.contato img {
 }
 div#contatos div.contato:hover {
   background-color: #EFE1FA;
+}
+div#contatos div.contato.blink {
+  animation-name: blink_color_sidebar; /*nome da animação*/
+  animation-direction: alternate;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
 /******************************PRIVATE CHAT**********************/
@@ -10259,6 +10274,7 @@ div#private_global_chat div.message-sender div.content::before {
 }
 div#private_global_chat div.chat-content {
   overflow-y: auto;
+  max-height: 440px;
 }
 div#private_global_chat div.send-message {
   margin: 20px 0 10px 0;
@@ -10288,7 +10304,8 @@ div#chat-page {
 div#chat-page div.sidebar {
   position: absolute;
   width: 300px;
-  height: 100%;
+  min-height: 100%;
+  height: auto;
   background-color: #C8CEDE;
 }
 div#chat-page div.sidebar div.link-container a {
@@ -10334,6 +10351,61 @@ div#chat-page div.contents div.title {
   text-align: center;
   background-color: #CEC8DE;
 }
+div#chat-page div.contents div.title div.menu-mobile {
+  position: absolute;
+  left: 15px;
+  display: none;
+}
+div#chat-page div.contents div.title div.menu-mobile a {
+  font-size: 2em;
+  color: black;
+}
+@media (max-width: 1000px) {
+  div#chat-page div.contents div.title div.menu-mobile {
+    display: inline-block;
+  }
+}
 div#chat-page div.contents div.body {
   padding: 5px 10px;
+}
+
+@media (max-width: 1000px) {
+  div#chat-page div.sidebar {
+    position: absolute;
+    width: 300px;
+    min-height: 100%;
+    height: auto;
+    left: -300px;
+    transition: 0.5s;
+  }
+  div#chat-page div.contents {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: 0.5s;
+  }
+  div#chat-page div.contents div.menu-mobile {
+    display: inline-block;
+  }
+  div#chat-page div.contents div.menu-mobile a {
+    font-size: 2em;
+    color: black;
+  }
+}
+@media (min-width: 1001px) {
+  div#chat-page div.sidebar {
+    position: absolute;
+    width: 300px;
+    min-height: 100%;
+    height: auto;
+    left: 0;
+    transition: 0.5s;
+  }
+  div#chat-page div.contents {
+    position: absolute;
+    width: calc(100% - 300px);
+    left: 300px;
+    transition: 0.5s;
+  }
 }

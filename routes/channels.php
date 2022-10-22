@@ -25,3 +25,6 @@ Broadcast::channel('chat.user.{id}', function ($user,$id) {
 Broadcast::channel('chat.messageRead.{user_sender}', function ($user,$user_sender) {
     return true;
 });
+Broadcast::channel('message.notRead.user.{user_sender}', function ($user,$user_sender) {
+    return true;
+});
