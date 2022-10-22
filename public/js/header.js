@@ -158,6 +158,13 @@ function endScroll(element){
     div.scrollTop = div.scrollHeight;
 }
 
+function showLoaadPage(){
+    $('.submit-loadPage').on('click submit', function(){
+        $("#load-page").css('height', doc.scrollHeight+'px');
+        $("#load-page").fadeIn();
+    });
+}
+
 // $(function(){
 //     $('.mask-money').mask('000.000.000,00', {reverse:true});
 // });

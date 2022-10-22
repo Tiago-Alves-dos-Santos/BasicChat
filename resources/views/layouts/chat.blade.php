@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 @include('includes.header')
 <body data-page="{{$page}}">
+    @include('includes.load-page')
     <div id="chat-page">
         <div class="sidebar">
             <div class="link-container">
@@ -143,6 +144,12 @@
             }
 
             isNotPageExecute(endScroll ,'contatos');
+
+            function hideLoadPage(){
+                $("#load-page").fadeOut();
+            }
+            hideLoadPage();
+            
         });
     </script>
     @include('includes.footer')

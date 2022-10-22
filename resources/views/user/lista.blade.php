@@ -5,7 +5,7 @@
     <div class="mt-5"></div>
     <div class="row mb-5">
         <div class="col-md-12">
-            <form action="{{route('view.user.lista')}}" method="POST">
+            <form action="{{route('view.user.lista')}}" class="submit-loadPage" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col-md-11 col-sm-12">
