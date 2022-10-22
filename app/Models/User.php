@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Chat;
 use App\Classes\Configuracao;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -43,6 +44,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    /******************FUNCTIONS******************/
+    public function getMessagesNotReadCount($user)
+    {
+        return Chat::where(function($q) use ($user){
+            $q->where('user_sender', $this->id);
+            $q->where('user_addressee', $user->id);
+            $q->where('status_message', 'received');
+        })
+        ->orWhere(function($q) use ($user){
+            $q->where('user_addressee', $this->id);
+            $q->where('user_sender', $user->id);
+            $q->where('status_message', 'received');
+        })
+        ->count();
+    }
+    /******************FUNCTIONS STATIC******************/
 
     public static function login($login)
     {

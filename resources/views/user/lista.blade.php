@@ -21,7 +21,10 @@
     </div>
     <div id="teste" style="width: 100%; padding: 0 11px; overflow-y: auto; overflow-x: hidden">
         @forelse ($users as $value)
-        <div class="row contato" data-url="{{route('view.chat.index', ['user_id' => base64_encode($value->id)])}}">
+        @php
+            $messages_not_read = $value->getMessagesNotReadCount(Auth::user());
+        @endphp
+        <div class="row contato @if($messages_not_read > 0) blink @endif" data-url="{{route('view.chat.index', ['user_id' => base64_encode($value->id)])}}">
             <div class="col-md-4 text-sm-center text-md-start mt-sm-1">
                 <img src="{{asset('img/user-default.png')}}" alt="">
             </div>
@@ -31,10 +34,10 @@
             <div class="col-md-4 text-sm-center text-md-end align-self-center mb-sm-3" id="user-online-{{$value->id}}">
                 @switch($value->online)
                     @case('Y')
-                    <span class="badge bg-success">Online</span>
+                    <span class="badge bg-success">Online @if($messages_not_read > 0) - {{$messages_not_read}} @endif</span>
                         @break
                     @case('N')
-                    <span class="badge bg-danger">Offline</span>
+                    <span class="badge bg-danger">Offline @if($messages_not_read > 0) - {{$messages_not_read}} @endif</span>
                         @break
                     @default
                         

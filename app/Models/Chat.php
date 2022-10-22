@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,6 +26,8 @@ class Chat extends Model
     }
 
     /******************FUNCTIONS******************/
+    
+    /******************FUNCTIONS STATIC******************/
 
     public static function readMessageUsers($user_sender, $user_addressee)
     {
