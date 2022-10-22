@@ -18,8 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [UserControl::class, 'index'])->name('view.user.login');
 Route::get('/cadastro', [UserControl::class, 'viewCadastro'])->name('view.user.cadastro');
-Route::get('/listagem', [UserControl::class, 'viewLista'])->name('view.user.lista');
-Route::post('/listagem/filter', [UserControl::class, 'filterContato'])->name('view.user.lista-filtro');
+Route::match(['get','post'],'/listagem', [UserControl::class, 'viewLista'])->name('view.user.lista');
 
 Route::post('/cadastrar', [UserControl::class, 'cadastrar'])->name('control.user.cadastrar');
 
