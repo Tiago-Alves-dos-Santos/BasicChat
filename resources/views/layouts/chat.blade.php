@@ -56,10 +56,10 @@
     @stack('scripts')
     <script>
         $(function(){
-            function isNotPageGroupExecute(function_callback){
+            function isNotPageExecute(function_callback, page_not_execute){
                 let page_actual = $("body").data('page');
 
-                if(page_actual != 'grupo_global'){
+                if(page_actual != page_not_execute){
                     function_callback();
                 }
             }
@@ -70,7 +70,7 @@
                 })
             }
 
-            isNotPageGroupExecute(messageGroupAlert);
+            isNotPageExecute(messageGroupAlert ,'grupo_global');
             function onlineListen(){
                 window.Echo.channel("online.listen")
                     .listen('Online', (e) => {
@@ -137,8 +137,12 @@
                 });
             }
             toggleSidebar();
+            function endScrollChat(){
+                div = $('div.chat-content')[0];
+                div.scrollTop = div.scrollHeight;
+            }
 
-            endScroll($('div.chat-content'));
+            isNotPageExecute(endScroll ,'contatos');
         });
     </script>
     @include('includes.footer')

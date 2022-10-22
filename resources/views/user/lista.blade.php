@@ -34,10 +34,14 @@
             <div class="col-md-4 text-sm-center text-md-end align-self-center mb-sm-3" id="user-online-{{$value->id}}">
                 @switch($value->online)
                     @case('Y')
-                    <span class="badge bg-success">Online @if($messages_not_read > 0) - {{$messages_not_read}} @endif</span>
+                    <span class="badge bg-success">Online
+                         <span class="count_messages"> @if($messages_not_read > 0) - {{$messages_not_read}} @endif </span>
+                    </span>
                         @break
                     @case('N')
-                    <span class="badge bg-danger">Offline @if($messages_not_read > 0) - {{$messages_not_read}} @endif</span>
+                    <span class="badge bg-danger">Offline
+                        <span class="count_messages"> @if($messages_not_read > 0) - {{$messages_not_read}} @endif </span>
+                    </span>
                         @break
                     @default
                         
@@ -67,6 +71,17 @@
     }
     chatPrivate();
 
+
+    function showAmountMessagesNotRead(){
+        window.Echo.private("message.notRead.user.{{Auth::id()}}")
+            .listen('Chat\\MessageNotRead', (e) => {
+                    // console.log(e);
+                    $('#contato-user-'+e.user_sender).addClass('blink');
+                    let count_messages = $('#contato-user-'+e.user_sender).find('.count_messages').html('- <span>'+e.messages_count+'</span>');
+
+            })
+    }
+    showAmountMessagesNotRead();
     
 </script>
 @endpush

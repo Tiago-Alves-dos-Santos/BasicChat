@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Configuracao;
+use App\Events\Chat\MessageNotRead;
 use App\Events\Online;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -42,9 +43,11 @@ class UserControl extends Controller
         
         $user = User::find(Auth::user()->id);
 
-        $user2 = User::find($user_id);
-        if($user->getMessagesNotReadCount($user2) > 0){//tem mensagens não lidas
+        $user_addressee = User::find($user_id);
+        $messages_count = $user->getMessagesNotReadCount($user_addressee);
+        if($messages_count > 0){//tem mensagens não lidas
             //evento realtime aq
+            broadcast(new MessageNotRead($user_addressee->id, $messages_count, $user->id));
         }
         return [
             // 'user_id' => $user_id,
