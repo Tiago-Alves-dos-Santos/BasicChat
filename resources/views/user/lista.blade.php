@@ -22,13 +22,13 @@
     <div id="teste" style="width: 100%; padding: 0 11px; overflow-y: auto; overflow-x: hidden">
         @forelse ($users as $value)
         <div class="row contato" data-url="{{route('view.chat.index', ['user_id' => base64_encode($value->id)])}}">
-            <div class="col-md-4 text-start">
+            <div class="col-md-4 text-sm-center text-md-start mt-sm-1">
                 <img src="{{asset('img/user-default.png')}}" alt="">
             </div>
-            <div class="col-md-4 text-center align-self-center">
+            <div class="col-md-4 text-sm-center text-md-center align-self-center">
                 <h5>{{$value->name}}</h5>
             </div>
-            <div class="col-md-4 text-end align-self-center" id="user-online-{{$value->id}}">
+            <div class="col-md-4 text-sm-center text-md-end align-self-center mb-sm-3" id="user-online-{{$value->id}}">
                 @switch($value->online)
                     @case('Y')
                     <span class="badge bg-success">Online</span>
