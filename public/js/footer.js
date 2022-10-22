@@ -22,7 +22,10 @@ $(function(){
     }
     showLoadPageClick();
     showLoadPageSubmit();
-
+    function hideLoadPage(){
+        $("#load-page").fadeOut();
+    }
+    hideLoadPage();
     $(document).scroll(function(e) {
         heightSidebar();
     });

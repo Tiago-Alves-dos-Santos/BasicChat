@@ -145,10 +145,7 @@
 
             isNotPageExecute(endScroll ,'contatos');
 
-            function hideLoadPage(){
-                $("#load-page").fadeOut();
-            }
-            hideLoadPage();
+            
             
         });
     </script>
