@@ -36,6 +36,18 @@ class UserControl extends Controller
             'users'
         ));
     }
+    public function filterContato(Request $request)
+    {
+        $search_name = $request->name;
+        $users = User::where('id','!=', Auth::id())
+        ->where('name','like',"%$search_name%")
+        ->orderBy('name')
+        ->get();
+
+        return view('user.lista', compact(
+            'users'
+        ));
+    }
 
     public function getMessagesNotReadCounter(Request $request)
     {
