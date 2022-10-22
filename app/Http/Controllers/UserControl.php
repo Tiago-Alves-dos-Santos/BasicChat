@@ -36,6 +36,23 @@ class UserControl extends Controller
         ));
     }
 
+    public function getMessagesNotReadCounter(Request $request)
+    {
+        $user_id = $request->user_id;
+        
+        $user = User::find(Auth::user()->id);
+
+        $user2 = User::find($user_id);
+        if($user->getMessagesNotReadCount($user2) > 0){//tem mensagens não lidas
+            //evento realtime aq
+        }
+        return [
+            // 'user_id' => $user_id,
+            // 'user' => $user,
+            // 'count_messages_notRead' => $user->getMessagesNotReadCount($user2)
+        ];
+    }
+
     public function cadastrar(Request $request)
     {
         $validate = $request->validate([
@@ -117,6 +134,7 @@ class UserControl extends Controller
             'online' => 'N'
         ]);
         broadcast(new Online(Auth::id(), 'N'));
+        Auth::logout();
         session()->flush();
         if(!empty($motivo) && $motivo === 'inatividade'){
             session([

@@ -20,6 +20,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'name',
         'login',
         'email',
@@ -48,8 +49,8 @@ class User extends Authenticatable
     public function getMessagesNotReadCount($user)
     {
         return Chat::where(function($q) use ($user){
-            $q->where('user_sender', $this->id);
-            $q->where('user_addressee', $user->id);
+            $q->where('user_sender', $this->id);//2
+            $q->where('user_addressee', $user->id);//1
             $q->where('status_message', 'received');
         })
         ->count();

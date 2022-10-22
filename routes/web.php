@@ -34,3 +34,6 @@ Route::post('/chat/ler-mensagens', [ChatControl::class, 'messageRead'])->name('c
 Route::get('/grupo', [GrupoGlobalControl::class, 'index'])->name('view.grupo-global.index');
 Route::post('/grupo/enviar-messagem', [GrupoGlobalControl::class, 'sendMessage'])->name('control.grupo-global.sendMessage');
 
+
+//verficar contato com mensagens nãi lidas
+Route::get('/messages/not-read/', [UserControl::class, 'getMessagesNotReadCounter'])->name('control.user.getMessagesNotReadCounter');

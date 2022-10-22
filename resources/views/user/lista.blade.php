@@ -24,7 +24,7 @@
         @php
             $messages_not_read = $value->getMessagesNotReadCount(Auth::user());
         @endphp
-        <div class="row contato @if($messages_not_read > 0) blink @endif" data-url="{{route('view.chat.index', ['user_id' => base64_encode($value->id)])}}">
+        <div class="row contato @if($messages_not_read > 0) blink @endif" data-url="{{route('view.chat.index', ['user_id' => base64_encode($value->id)])}}" id="contato-user-{{$value->id}}">
             <div class="col-md-4 text-sm-center text-md-start mt-sm-1">
                 <img src="{{asset('img/user-default.png')}}" alt="">
             </div>

@@ -101,6 +101,7 @@
                     },
                     complete: function(e){
                         // alert('Messagem enviada com sucesso');
+                        messagesNotRead("{{$user->id}}");
                     },
                     success: function (e) {
                         // console.log('sucesso',e);
@@ -136,6 +137,25 @@
                 },
                 success: function (e) { //mensagens lidas
                     // console.log('sucesso',e)
+                }
+            });
+        }
+
+        function messagesNotRead(user_addressee){
+            $.ajax({
+                type: 'GET',
+                url:"{{route('control.user.getMessagesNotReadCounter')}}",
+                data:{
+                    'user_id': user_addressee
+                },
+                beforeSend: function(e){
+ 
+                },
+                complete: function(e){
+                    // alert('Messagem enviada com sucesso');
+                },
+                success: function (e) { //mensagens lidas
+                    console.log('sucesso',e)
                 }
             });
         }

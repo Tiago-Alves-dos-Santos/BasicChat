@@ -75,7 +75,7 @@ class ChatControl extends Controller
     {
         $user_sender = $request->user_sender;
         $user_addressee = $request->user_addressee;
-        Chat::readMessageUsers($request->user_sender, $request->user_addressee);
+        Chat::readMessageUsersRealtime($request->user_sender, $request->user_addressee);
         //evento mensagens lidas
         broadcast(new MessageRead($user_sender, $user_addressee));
     }
