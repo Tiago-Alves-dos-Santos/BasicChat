@@ -153,6 +153,10 @@ function semEspaco(element) {
     element.value = element.value.replace(/[^a-zA-Z0-9]/g,'');
 }
 
+function endScroll(element){
+    div = $(element)[0];
+    div.scrollTop = div.scrollHeight;
+}
 
 // $(function(){
 //     $('.mask-money').mask('000.000.000,00', {reverse:true});

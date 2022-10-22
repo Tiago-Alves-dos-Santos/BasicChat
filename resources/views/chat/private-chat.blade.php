@@ -7,7 +7,7 @@
     <div class="chat-content">
 
         @foreach ($messages as $value)
-            <div class="message @if ($value->user_sender == Auth::id()) message-sender @else message-addressee @endif mt-1">
+            <div class="message @if ($value->user_sender == Auth::id()) message-sender @else message-addressee @endif mt-1 mb-1">
                 <div class="content">
                     <?= htmlspecialchars_decode($value->message) ?>
 
@@ -47,7 +47,7 @@
 
 
         function addMessageSent(message){
-            let html = '<div class="message message-sender mt-1">'+
+            let html = '<div class="message message-sender mt-1 mb-1">'+
                 '             <div class="content">'+
                 '                 <p>'+message+'</p>'+
                 '                <div class="message-status">'+
@@ -61,7 +61,7 @@
         function addMessage(message, sender){
             let html = '';
             if(sender){
-                html = '<div class="message message-sender mt-1">'+
+                html = '<div class="message message-sender mt-1 mb-1">'+
                 '             <div class="content">'+
                 '                 <p>'+message+'</p>'+
                 '                <div class="message-status">'+
@@ -70,7 +70,7 @@
                 '             </div>'+
                 '         </div>';
             }else{
-                html = '<div class="message message-addressee mt-1">'+
+                html = '<div class="message message-addressee mt-1 mb-1">'+
                 '             <div class="content">'+
                 '                 <p>'+message+'</p>'+
                 '             </div>'+
@@ -95,6 +95,7 @@
                     beforeSend: function(e){
                         if(chat_mesage){
                             addMessage(chat_mesage, true);
+                            endScroll($('div.chat-content'));
                         }
                         CKEDITOR.instances['send_message'].setData('');  
                     },
@@ -151,6 +152,7 @@
 
                     if(sender != auth_id){//recebendo, usuario destinatario
                         addMessage(message, false);
+                        endScroll($('div.chat-content'));
                     }
 
                     if(!document.hidden){

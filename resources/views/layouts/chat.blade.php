@@ -137,6 +137,8 @@
                 });
             }
             toggleSidebar();
+
+            endScroll($('div.chat-content'));
         });
     </script>
     @include('includes.footer')

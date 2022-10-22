@@ -10172,6 +10172,14 @@ div {
   box-sizing: border-box;
 }
 
+@keyframes blink_color_sidebar {
+  0% {
+    background-color: blueviolet;
+  }
+  100% {
+    background-color: white;
+  }
+}
 /******************************CONTATOS**********************/
 div#contatos {
   width: 100%;
@@ -10190,6 +10198,13 @@ div#contatos div.contato img {
 }
 div#contatos div.contato:hover {
   background-color: #EFE1FA;
+}
+div#contatos div.contato.blink {
+  animation-name: blink_color_sidebar; /*nome da animação*/
+  animation-direction: alternate;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
 /******************************PRIVATE CHAT**********************/
@@ -10259,6 +10274,7 @@ div#private_global_chat div.message-sender div.content::before {
 }
 div#private_global_chat div.chat-content {
   overflow-y: auto;
+  max-height: 440px;
 }
 div#private_global_chat div.send-message {
   margin: 20px 0 10px 0;
