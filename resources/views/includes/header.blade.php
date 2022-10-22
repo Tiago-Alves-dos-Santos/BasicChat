@@ -4,6 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
     <title>BasiChat</title>
+    <link rel="icon" href="{{asset('img/logo.png')}}">
     {{-- mix - css - js --}}
     <link rel="stylesheet" href="{{mix('css/app.css')}}">
     {{-- alerts --}}
