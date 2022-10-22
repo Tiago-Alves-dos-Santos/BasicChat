@@ -18,12 +18,12 @@ div#center-page{
 $cpg_sidebar_color:#C8CEDE;
 $cpg_sidebar_link_bg_color:#F0F0F5;
 $cpg_sidebar_link_bg_active_color:#CEC8DE;
-
+$cpg_sidebar_width: 300px;
+$cpg_sidebar_transition_responsive: .5s;
 div#chat-page{
     position: absolute;
     width: 100%;
     height: 100%;
-    $cpg_sidebar_width: 300px;
     div.sidebar{
         position: absolute;
         width: $cpg_sidebar_width;
@@ -74,9 +74,76 @@ div#chat-page{
             padding: 10px;
             text-align: center;
             background-color: #CEC8DE;
+            div.menu-mobile{
+                position: absolute;
+                left: 15px;
+                display: none;
+                a{
+                    font-size: 2em;
+                    color: black;
+                }
+            }
+            @media (max-width: 1000px) {
+                div.menu-mobile{
+                    display: inline-block;
+                }
+            }
+           
         }
         div.body{
             padding: 5px 10px;
         }
+    }
+
+
+}
+
+@media (max-width: 1000px) {
+    div#chat-page{
+        div.sidebar{
+            position: absolute;
+            width: $cpg_sidebar_width;
+            min-height: 100%;
+            height: auto;
+            left: calc($cpg_sidebar_width * (-1));
+            transition: $cpg_sidebar_transition_responsive;
+        }
+        div.contents{
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: $cpg_sidebar_transition_responsive;
+            div.menu-mobile{
+                display: inline-block;
+                a{
+                    font-size: 2em;
+                    color: black;
+                }
+            }
+        }
+    
+    
+    }
+}
+
+@media (min-width: 1001px) {
+    div#chat-page{
+        div.sidebar{
+            position: absolute;
+            width: $cpg_sidebar_width;
+            min-height: 100%;
+            height: auto;
+            left: 0;
+            transition: $cpg_sidebar_transition_responsive;
+        }
+        div.contents{
+            position: absolute;
+            width: calc(100% - $cpg_sidebar_width);
+            left: $cpg_sidebar_width;
+            transition: $cpg_sidebar_transition_responsive;
+        }
+    
+    
     }
 }

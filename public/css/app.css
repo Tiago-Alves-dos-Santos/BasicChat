@@ -10335,6 +10335,61 @@ div#chat-page div.contents div.title {
   text-align: center;
   background-color: #CEC8DE;
 }
+div#chat-page div.contents div.title div.menu-mobile {
+  position: absolute;
+  left: 15px;
+  display: none;
+}
+div#chat-page div.contents div.title div.menu-mobile a {
+  font-size: 2em;
+  color: black;
+}
+@media (max-width: 1000px) {
+  div#chat-page div.contents div.title div.menu-mobile {
+    display: inline-block;
+  }
+}
 div#chat-page div.contents div.body {
   padding: 5px 10px;
+}
+
+@media (max-width: 1000px) {
+  div#chat-page div.sidebar {
+    position: absolute;
+    width: 300px;
+    min-height: 100%;
+    height: auto;
+    left: -300px;
+    transition: 0.5s;
+  }
+  div#chat-page div.contents {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: 0.5s;
+  }
+  div#chat-page div.contents div.menu-mobile {
+    display: inline-block;
+  }
+  div#chat-page div.contents div.menu-mobile a {
+    font-size: 2em;
+    color: black;
+  }
+}
+@media (min-width: 1001px) {
+  div#chat-page div.sidebar {
+    position: absolute;
+    width: 300px;
+    min-height: 100%;
+    height: auto;
+    left: 0;
+    transition: 0.5s;
+  }
+  div#chat-page div.contents {
+    position: absolute;
+    width: calc(100% - 300px);
+    left: 300px;
+    transition: 0.5s;
+  }
 }

@@ -22,6 +22,12 @@
         </div>
         <div class="contents">
             <div class="title shadow">
+                <div class="menu-mobile">
+                    <a href="#" id="toogle-sidebar">
+                        <i class="fa-sharp fa-solid fa-bars"></i>
+                    </a>
+                </div>
+
                 <h2>
                     {{$title_page}} 
                     @if(!empty($user)) 
@@ -105,7 +111,32 @@
 
             inactivityTime();
 
-            
+            function toggleSidebar(){
+                $("#toogle-sidebar").on('click', function(e){
+                    e.preventDefault();
+                    let left = $("#chat-page div.sidebar").css('left');
+                    let width = $("#chat-page div.sidebar").css('width');
+                    left = left.replace("px","");
+                    width = width.replace("px","");
+                    let icon = "";
+                    if(left < 0){//mostrar sidebar
+                        left *= -1;
+                        $("#chat-page div.sidebar").css('left', 0);
+                        $("#chat-page div.contents").css('width', 'calc(100% -'+left+'px)');
+                        $("#chat-page div.contents").css('left', left+'px');
+                        icon = '<i class="fa-solid fa-xmark"></i>';
+                    }else{//esconder sidebaer
+                        left = width * -1;
+                        $("#chat-page div.sidebar").css('left', left+'px');
+                        $("#chat-page div.contents").css('width', '100%');
+                        $("#chat-page div.contents").css('left', '0px');
+                        icon = '<i class="fa-sharp fa-solid fa-bars"></i>';
+                    }
+
+                    $(this).html(icon);
+                });
+            }
+            toggleSidebar();
         });
     </script>
     @include('includes.footer')
