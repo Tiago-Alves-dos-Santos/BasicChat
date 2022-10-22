@@ -27,7 +27,8 @@
         </p>
         <p>
           Para um melhor uso de teste é indicado usar uma <span class="fw-bold">guia anônima</span>, caso esteja usando um único computador.<br/>
-          Outro indicação é abrir a aplicação no host e acessar de diferentes máquinas!
+          Outro indicação é abrir a aplicação no host, para acessar de diferentes máquinas!<br> Veja abaixo: <br>
+          <code>php artisan serve --host="0.0.0.0"</code>
         </p>
       </div>
     </x-modal>
