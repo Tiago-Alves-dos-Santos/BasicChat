@@ -1,7 +1,7 @@
 @extends('layouts.page-center', ['title_card' => 'Cadastrar Usuário'])
 
 @section('center-content')
-<form action="{{route('control.user.cadastrar')}}" method="POST" id="form_login">
+<form action="{{route('control.user.cadastrar')}}" class="submit-loadPage" method="POST" id="form_login">
     @csrf
     <div class="form-row">
         <div class="col-md-12">

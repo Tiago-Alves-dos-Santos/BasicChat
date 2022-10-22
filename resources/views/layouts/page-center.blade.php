@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 @include('includes.header')
 <body>
+  @include('includes.load-page')
     <div id="center-page">
         <div class="body_form">
             <div class="card">
