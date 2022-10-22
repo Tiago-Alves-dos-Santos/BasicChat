@@ -52,11 +52,6 @@ class User extends Authenticatable
             $q->where('user_addressee', $user->id);
             $q->where('status_message', 'received');
         })
-        ->orWhere(function($q) use ($user){
-            $q->where('user_addressee', $this->id);
-            $q->where('user_sender', $user->id);
-            $q->where('status_message', 'received');
-        })
         ->count();
     }
     /******************FUNCTIONS STATIC******************/
