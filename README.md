@@ -50,10 +50,8 @@
 :heavy_check_mark:  Versão: `1.0.0 - beta` 
 
 
-## :movie_camera: Video de exemplo chat privado
-<video width="320" height="240" controls>
-  <source src="demonstrativo-mov.mp4" type="video/mov">
-</video>
+## :movie_camera: Gif de exemplo chat privado
+<img src="readme/demonstrativo.gif" />
 
 ### Observação
  Para enviar mensagens use `SHIFT + ENTER` 
