@@ -1,12 +1,3 @@
-# Navegação
-<p align="center">
- <a href="#BasicChat">Objetivo</a> •
- <a href="#Funcionalidades">Roadmap</a> • 
- <a href="#Tecnologias Utilizadas">Tecnologias</a> • 
- <a href="#Inicialização">Contribuição</a> • 
- <a href="#Implementações Futuras">Licença</a> • 
- <a href="#autor">Autor</a>
-</p>
 # BasicChat
   Este sistema foi criado exclusivamente para **fins demonstrativos**, o mesmo deixa muito a desejar para um sistema de chat.<br/>
   O objetivo desse sistema é exemplificar o uso de '**websockets**' com laravel, mostrar o uso de canais públicos e privados.
@@ -47,7 +38,7 @@
 7. Execute `php artisan migrate`
 8. Execute `php artisan serve` ou `php artisan serve --host='0.0.0.0'`
 9. Abra um nova guia no seu cmd
-10. Execute `php artisan websockets:serve`
+10. Execute `php artisan websockets:serve` 
 
 ## Implementações Futuras
  :construction:  Sem previsão!  :construction:
@@ -56,4 +47,13 @@
  --- **N/A** ---
 
 ## :eyes: Status Projeto
+:heavy_check_mark:  Versão: `1.0.0 - beta` 
 
+
+## :eyes: Video de exemplo chat privado
+<video width="320" height="240" controls>
+  <source src="readme/demonstrativo.mkv" type="video/mkv">
+</video>
+
+### Observação
+ Para enviar mensagens use `SHIFT + ENTER` 
