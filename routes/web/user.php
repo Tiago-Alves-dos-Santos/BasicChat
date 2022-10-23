@@ -14,6 +14,3 @@ Route::group( [ 'prefix' => 'user/' ], function()
         Route::get('/messages/not-read/', [UserControl::class, 'getMessagesNotReadCounter'])->name('control.user.getMessagesNotReadCounter');
     });
 });
-
-//verficar contato com mensagens nãi lidas
-

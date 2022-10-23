@@ -22,5 +22,5 @@
             </button>
         </div>
     </div>
-  </form>
+</form>
 @endsection
