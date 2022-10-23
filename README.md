@@ -30,13 +30,13 @@
 ~~~
 ## Inicialização
 1. Certifique-se de ter instalado na sua máquina o php 7.3 - 8.1
-2. Faça o ˋgit cloneˋ
-3. Duplique o arquivo ˋ.env.exampleˋ e retire o ˋ.env`
+2. Faça o `git clone url_projeto -b main`
+3. Duplique o arquivo `.env.example` e retire o `.example`
 4. Configure as variaveis de conexao com o banco de dados
-5. Execute ˋcomposer installˋ
-6. Execute ˋphp artisan key:generateˋ
-7. Execute ˋphp artisan migrateˋ
-8. Execute ˋphp artisan serve`  ou  ˋphp artisan serve --host='0.0.0.0'`
+5. Execute `composer install`
+6. Execute `php artisan key:generate`
+7. Execute `php artisan migrate`
+8. Execute `php artisan serve` ou `php artisan serve --host='0.0.0.0'`
 9. Abra um nova guia no seu cmd
 10. Execute ˋphp artisan websockets:serve`
 
