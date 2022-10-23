@@ -28,17 +28,16 @@
 ~~~Banco
 * MySql 5.7
 ~~~
-
-~~~javascript
-Esta é uma linha de código em Javascript.
-~~~
-
-~~~php
-Esta é uma linha de código em PHP.
-~~~
-
-~~~html
-Esta é uma linha de código em HTML.
-~~~
+## Inicialização
+1. Certifique-se de ter instalado na sua máquina o php 7.3 - 8.1
+2. Faça o ˋgit cloneˋ
+3. Duplique o arquivo ˋ.env.exampleˋ e retire o ˋ.env`
+4. Configure as variaveis de conexao com o banco de dados
+5. Execute ˋcomposer installˋ
+6. Execute ˋphp artisan key:generateˋ
+7. Execute ˋphp artisan migrateˋ
+8. Execute ˋphp artisan serve`  ou  ˋphp artisan serve --host='0.0.0.0'`
+9. Abra um nova guia no seu cmd
+10. Execute ˋphp artisan websockets:serve`
 
 
