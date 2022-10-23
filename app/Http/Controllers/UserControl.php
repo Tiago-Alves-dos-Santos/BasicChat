@@ -32,6 +32,7 @@ class UserControl extends Controller
         $users = User::where('id','!=', Auth::id())
         ->orderBy('name')
         ->get();
+        $search_name = '';
         if($request->method() === 'POST'){
             $search_name = $request->name;
             $users = User::where('id','!=', Auth::id())
@@ -40,7 +41,8 @@ class UserControl extends Controller
             ->get();
         }
         return view('user.lista', compact(
-            'users'
+            'users',
+            'search_name'
         ));
     }
 

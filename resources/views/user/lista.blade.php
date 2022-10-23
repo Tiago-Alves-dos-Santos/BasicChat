@@ -9,7 +9,7 @@
                 @csrf
                 <div class="row">
                     <div class="col-md-11 col-sm-12">
-                        <input type="search" name="name" class="form-control" placeholder="Buscar...">
+                        <input type="search" name="name" class="form-control" placeholder="Buscar..." value="{{$search_name}}">
                     </div>
                     <div class="col-md col-sm-12">
                         <button type="submit" class="btn btn-primary d-block w-100">
