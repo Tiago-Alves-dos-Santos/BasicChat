@@ -1,14 +1,15 @@
-@extends('layouts.chat', ['page' => 'contatos', 'title_page' => 'Contatos'])
+@extends('layouts.chat', ['page' => 'contatos', 'title_page' => "Contatos - {$users->count()}"])
 
 @section('content')
 <div id="contatos">
     <div class="mt-5"></div>
     <div class="row mb-5">
         <div class="col-md-12">
-            <form action="" method="POST">
+            <form action="{{route('view.user.lista')}}" class="submit-loadPage" method="POST">
+                @csrf
                 <div class="row">
                     <div class="col-md-11 col-sm-12">
-                        <input type="search" class="form-control" placeholder="Buscar...">
+                        <input type="search" name="name" class="form-control" placeholder="Buscar..." value="{{$search_name}}">
                     </div>
                     <div class="col-md col-sm-12">
                         <button type="submit" class="btn btn-primary d-block w-100">
