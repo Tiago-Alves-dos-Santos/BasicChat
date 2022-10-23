@@ -29,6 +29,7 @@ class Chat extends Model
     
     /******************FUNCTIONS STATIC******************/
 
+    //ler mensagens ao carregar a pagina
     public static function readMessageUsers($user_sender, $user_addressee)
     {
         $data = [
@@ -44,6 +45,7 @@ class Chat extends Model
             'status_message' => 'read'
         ]);
     }
+    //ler mensagens se possivel apos realtime
     public static function readMessageUsersRealtime($user_sender, $user_addressee)
     {
         $data = [

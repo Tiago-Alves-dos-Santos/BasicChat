@@ -100,7 +100,7 @@
                         CKEDITOR.instances['send_message'].setData('');  
                     },
                     complete: function(e){
-                        // alert('Messagem enviada com sucesso');
+                        //faz requisição para ativar evento de verficar se mensagem foi lida pelo destinatorio ou não
                         messagesNotRead("{{$user->id}}");
                     },
                     success: function (e) {
@@ -119,7 +119,7 @@
         chatText.on('key', function(e){
             enviarMessage(e);
         })
-
+        //evento verficar mensagens lidas
         function messageReads(user_sender, user_addressee){
             $.ajax({
                 type: 'POST',
@@ -140,7 +140,7 @@
                 }
             });
         }
-
+        //mensagens enviadas, mas não lidas
         function messagesNotRead(user_addressee){
             $.ajax({
                 type: 'GET',
@@ -160,7 +160,7 @@
             });
         }
 
-
+        //verfica se recebeu alguma mensagem
         function realtimeMessage(){
             window.Echo.private("chat.user.{{Auth::id()}}")
             .listen('Chat\\ChatEvent', (e) => {
@@ -175,7 +175,7 @@
                         endScroll($('div.chat-content'));
                     }
 
-                    if(!document.hidden){
+                    if(!document.hidden){//caso usuario estando na tela, a mensagem foi lida
                         // console.log('lida');
                         //fazer request para mensagem lida, usuario sender receber
                         messageReads(e.user_sender, e.user_adressee);
@@ -186,7 +186,7 @@
         
         realtimeMessage();
 
-
+        //escutar evento mensagens lidas, mudar visto da mensagem
         function messageReadsListen(){
             window.Echo.private("chat.messageRead.{{Auth::id()}}")
             .listen('Chat\\MessageRead', (e) => {
@@ -201,11 +201,11 @@
         messageReadsListen();
 
 
-        //não funciona ao iniciar a pagina
+        //não funciona ao iniciar a pagina, verfica se usuario mudou para abada mensagem
         document.addEventListener("visibilitychange",()=>{
             // console.log(document.visibilityState);
-           if(document.visibilityState==="visible"){
-                console.log(" >> This window is visible")
+           if(document.visibilityState==="visible"){ //caso tela visivel
+                // console.log(" >> This window is visible")
                 // fazer request e mudar as mensagens não lidas
                 messageReads("{{$user->id}}", "{{Auth::id()}}");
                 

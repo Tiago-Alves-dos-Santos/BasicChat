@@ -79,9 +79,6 @@
                         'user_id': "{{Auth::id()}}"
                     },
                     beforeSend: function(e){
-                        // if(chat_mesage){
-                        //     addMessageSent(chat_mesage);
-                        // }
                         CKEDITOR.instances['chat_message'].setData('');
                     },
                     complete: function(e){
@@ -110,6 +107,7 @@
         chatText.on('key', function(e){
             enviarMessage(e);
         })
+        //escutar se alguem mandou mensagem no grupo
         function realtimeMessage(){
             window.Echo.channel("grupo.global")
             .listen('GroupGlobal', (e) => {

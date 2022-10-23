@@ -33,6 +33,7 @@ class UserControl extends Controller
         ->orderBy('name')
         ->get();
         $search_name = '';
+        //caso exista requisição de filtro
         if($request->method() === 'POST'){
             $search_name = $request->name;
             $users = User::where('id','!=', Auth::id())
@@ -58,6 +59,7 @@ class UserControl extends Controller
             //evento realtime aq
             broadcast(new MessageNotRead($user_addressee->id, $messages_count, $user->id));
         }
+        //descomente para teste
         return [
             // 'user_id' => $user_id,
             // 'user' => $user,
@@ -81,8 +83,8 @@ class UserControl extends Controller
                 'login' => $login,
                 'password' => Hash::make('teste')
             ]);
-            if(!Auth::check()){
-                $retorno = User::login($user->login);
+            if(!Auth::check()){ //caso usuario não logado
+                $retorno = User::login($user->login); //login apos cadastro
                 if($retorno->login){
                     User::where('id', $retorno->user->id)->update([
                         'online' => 'Y'
@@ -90,7 +92,7 @@ class UserControl extends Controller
                     broadcast(new Online($retorno->user->id, 'Y'));
                 }
                 return redirect()->route('view.user.lista');
-            }else{
+            }else{ //caso logado e fazendo cadastro
                 session([
                     'alert_msg' => [
                         'title' => 'Sucesso!',
