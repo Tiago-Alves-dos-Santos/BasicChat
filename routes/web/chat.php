@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\ChatControl;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GrupoGlobalControl;
 Route::group( [ 'prefix' => 'chat/', 'middleware' => 'auth' ], function()
 {
     Route::group([ 'prefix' => 'private/' ], function()
