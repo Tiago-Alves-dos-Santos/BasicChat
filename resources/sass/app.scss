@@ -1,0 +1,15 @@
+@import "~bootstrap/scss/bootstrap.scss";
+*{
+    margin:0;
+    padding: 0;
+}
+body{
+    overflow-x: hidden;
+}
+div{
+    position: relative;
+    box-sizing: border-box;
+}
+@import 'animations.scss';
+@import 'page.scss';
+@import 'layouts.scss';

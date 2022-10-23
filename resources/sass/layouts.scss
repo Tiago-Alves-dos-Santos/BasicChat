@@ -1,0 +1,149 @@
+/*******************************CENTER PAGE******************************/
+div#center-page{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    padding: 0 5px;
+    div.body_form{
+        width: 500px;
+    }
+}
+
+/*******************************CHAT PAGE******************************/
+//abreviação da pagina -> cpg
+$cpg_sidebar_color:#C8CEDE;
+$cpg_sidebar_link_bg_color:#F0F0F5;
+$cpg_sidebar_link_bg_active_color:#CEC8DE;
+$cpg_sidebar_width: 300px;
+$cpg_sidebar_transition_responsive: .5s;
+div#chat-page{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    div.sidebar{
+        position: absolute;
+        width: $cpg_sidebar_width;
+        min-height: 100%;
+        height: auto;
+        background-color: $cpg_sidebar_color;
+        div.link-container{
+            a{
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+                padding: 10px 5px;
+                border: 1px solid gray;
+                text-decoration: none;
+                text-align: center;
+                background-color: $cpg_sidebar_link_bg_color;
+                color: black;
+                &:hover{
+                    background-color: $cpg_sidebar_link_bg_active_color;
+                }
+            }
+            a.active{
+                background-color: $cpg_sidebar_link_bg_active_color;
+            }
+            a.disable{
+                opacity: .3;
+                cursor: not-allowed;
+            }
+            a.logout:hover{
+                color: white;
+                background-color: #ec3232;
+            }
+        }
+        div.info-user{
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 5px 0;
+        }
+    }
+    div.contents{
+        position: absolute;
+        width: calc(100% - $cpg_sidebar_width);
+        left: $cpg_sidebar_width;
+        height: 100%;
+        div.title{
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            background-color: #CEC8DE;
+            div.menu-mobile{
+                position: absolute;
+                left: 15px;
+                display: none;
+                a{
+                    font-size: 2em;
+                    color: black;
+                }
+            }
+            @media (max-width: 1000px) {
+                div.menu-mobile{
+                    display: inline-block;
+                }
+            }
+           
+        }
+        div.body{
+            padding: 5px 10px;
+        }
+    }
+
+
+}
+
+@media (max-width: 1000px) {
+    div#chat-page{
+        div.sidebar{
+            position: absolute;
+            width: $cpg_sidebar_width;
+            min-height: 100%;
+            height: auto;
+            left: calc($cpg_sidebar_width * (-1));
+            transition: $cpg_sidebar_transition_responsive;
+        }
+        div.contents{
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: $cpg_sidebar_transition_responsive;
+            div.menu-mobile{
+                display: inline-block;
+                a{
+                    font-size: 2em;
+                    color: black;
+                }
+            }
+        }
+    
+    
+    }
+}
+
+@media (min-width: 1001px) {
+    div#chat-page{
+        div.sidebar{
+            position: absolute;
+            width: $cpg_sidebar_width;
+            min-height: 100%;
+            height: auto;
+            left: 0;
+            transition: $cpg_sidebar_transition_responsive;
+        }
+        div.contents{
+            position: absolute;
+            width: calc(100% - $cpg_sidebar_width);
+            left: $cpg_sidebar_width;
+            transition: $cpg_sidebar_transition_responsive;
+        }
+    
+    
+    }
+}

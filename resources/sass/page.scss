@@ -1,0 +1,134 @@
+/******************************************INCLUDES***************************************************/
+/******************************LOAD PAGE**********************/
+div#load-page{
+    position: absolute;
+    z-index: 8000;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    height: 100%;
+    cursor: wait;
+    background-color: rgb(33, 33, 24);
+    img{
+        max-width: 500px;
+        max-height: 500px;
+    }
+}
+
+/******************************************FIM INCLUDES***********************************************/
+
+/******************************CONTATOS**********************/
+div#contatos{
+    width: 100%;
+    div.contato{
+        padding: 0 10px;
+        border-bottom: 1px solid black;
+        cursor: pointer;
+        max-height: 100%;
+        img{
+            border-radius: 100%;
+            margin-bottom: 10px;
+            width: 75px;
+            height: 75px;
+        }
+        &:hover{
+            background-color: #EFE1FA;
+        }
+    }
+
+    div.contato.blink{
+        animation-name: blink_color_sidebar;/*nome da animação*/
+        animation-direction: alternate;
+        animation-duration: 1s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+
+    }
+}
+
+/******************************PRIVATE CHAT**********************/
+$msg_sender_bg_color:#DEF5D7;
+$msg_addressee_bg_color:#F5EEE4;
+div#private_global_chat{
+    width: 100%;
+    height: 100%;
+    div.message{
+        z-index: 2;
+        div.content{
+            padding: 5px 10px;
+            border-radius: 5px;
+            max-width: 45%;
+            div.message-status{
+                display: flex;
+                justify-content: flex-end;
+                span.read i{
+                    color: blue !important;
+                }
+            }
+            
+        }
+
+    }
+    div.message-addressee{
+        display: flex;
+        justify-content: flex-start;
+        z-index: 2;
+        div.content{
+            border: 1px solid darken($msg_addressee_bg_color, 40%);
+            background-color: $msg_addressee_bg_color;
+            margin-left: 10px;
+        }
+        div.content::after{
+            content: '  ';
+            position: absolute;
+            top: 12px;
+            left: -4px;
+            display: block;
+            width: 25px;
+            height: 25px;
+            border: 1px solid darken($msg_addressee_bg_color, 40%);
+            background-color: $msg_addressee_bg_color;
+            transform: rotate(50deg);
+            z-index: -1000;
+            // transform: skew(30deg, 15deg);
+        }
+    }
+    div.message-sender{
+        display: flex;
+        justify-content: flex-end;
+        div.content{
+            border: 1px solid darken($msg_sender_bg_color, 40%);
+            background-color: $msg_sender_bg_color;  
+            margin-right: 10px;       
+        }
+        div.content::before{
+            content: '  ';
+            position: absolute;
+            top: 12px;
+            right: -4px;
+            display: block;
+            width: 25px;
+            height: 25px;
+            border: 1px solid darken($msg_sender_bg_color, 40%);
+            background-color: $msg_sender_bg_color;
+            transform: rotate(50deg);
+            z-index: -1000;
+            // transform: skew(30deg, 15deg);
+        }
+    }
+
+    div.chat-content{
+        overflow-y: auto;
+        max-height: 440px;
+    }
+
+    div.send-message{
+        margin: 20px 0 10px 0;
+    }
+
+    
+    
+}
