@@ -52,7 +52,7 @@
 
 ## :eyes: Video de exemplo chat privado
 <video width="320" height="240" controls>
-  <source src="readme/demonstrativo.mkv" type="video/mkv">
+  <source src="readme/demonstrativo.mp4" type="video/mp4">
 </video>
 
 ### Observação
