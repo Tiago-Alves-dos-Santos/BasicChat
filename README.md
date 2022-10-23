@@ -50,10 +50,15 @@
 :heavy_check_mark:  Versão: `1.0.0 - beta` 
 
 
-## :eyes: Video de exemplo chat privado
+## :movie_camera: Video de exemplo chat privado
 <video width="320" height="240" controls>
   <source src="readme/demonstrativo.mp4" type="video/mp4">
 </video>
+![](readme/demonstrativo.mp4)
+<video width="320" height="240" controls>
+  <source src="readme/demonstrativo-mov.mp4" type="video/mov">
+</video>
+![](readme/demonstrativo-mov.mov)
 
 ### Observação
  Para enviar mensagens use `SHIFT + ENTER` 
