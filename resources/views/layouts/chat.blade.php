@@ -64,6 +64,7 @@
                     function_callback();
                 }
             }
+            //escutar notificação de mensagem mandada em grupo, caso vc não esteja na pagina do grupo
             function messageGroupAlert(){
                 window.Echo.channel("notification.group")
                 .listen('NotificationGroup', (e) => {
@@ -72,6 +73,7 @@
             }
 
             isNotPageExecute(messageGroupAlert ,'grupo_global');
+            //evento de escutar se usuario ainda esta online ou não
             function onlineListen(){
                 window.Echo.channel("online.listen")
                     .listen('Online', (e) => {
@@ -87,7 +89,7 @@
             }
             onlineListen();
 
-
+            //verfica initivadade
             const inactivityTime = function () {
                 let time;
                 let cont = 0;
@@ -103,7 +105,7 @@
                 function resetTimer() {
                     clearTimeout(time);
                     //tempo de inatividade em segundos
-                    let minuto = 60;
+                    let minuto = 60; //uma hora
                     let inatividade_time =  (minuto * 60) * 1000;
 
                     time = setTimeout(logout, inatividade_time)

@@ -61,9 +61,7 @@
 
 @push('scripts')
 <script>
-    let height_screen = screen.height - 350;
-    $("#teste").css('max-height', height_screen);
-
+    //link para chat privado
     function chatPrivate(){
         $('.contato').on('click', function(){
             let url = $(this).data('url');
@@ -72,7 +70,7 @@
     }
     chatPrivate();
 
-
+    //escutar evento de mensagen não lidas
     function showAmountMessagesNotRead(){
         window.Echo.private("message.notRead.user.{{Auth::id()}}")
             .listen('Chat\\MessageNotRead', (e) => {

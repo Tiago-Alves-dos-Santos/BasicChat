@@ -19,7 +19,7 @@ class GrupoGlobalControl extends Controller
             'messages'
         ));
     }
-
+    //envia mensagem no grupo
     public function sendMessage(Request $request)
     {
         $result = [

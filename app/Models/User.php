@@ -45,7 +45,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    /******************FUNCTIONS******************/
+    /******************FUNCTIONS******************/    
+    //pega quantidade de mensagens não lidas com um usuario
     public function getMessagesNotReadCount($user)
     {
         return Chat::where(function($q) use ($user){
@@ -57,6 +58,7 @@ class User extends Authenticatable
     }
     /******************FUNCTIONS STATIC******************/
 
+    //realiza login, retorna usuario logado ou mensagem e alerta
     public static function login($login)
     {
         $retorno = [

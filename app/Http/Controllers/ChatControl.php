@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ChatControl extends Controller
 {
+    //busca mensagens por contato selecionado
     public function index(Request $request)
     {
         $user = User::find(base64_decode($request->user_id));
@@ -35,6 +36,7 @@ class ChatControl extends Controller
         ));
     }
 
+    //enviar mensagem
     public function sendMessage(Request $request)
     {
         $result = [
@@ -71,6 +73,7 @@ class ChatControl extends Controller
     }
 
 
+    //ler mensagens apos envio
     public function messageRead(Request $request)
     {
         $user_sender = $request->user_sender;
