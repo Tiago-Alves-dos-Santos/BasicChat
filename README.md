@@ -10,3 +10,23 @@
 - [x] Envio de mensagens públicas, para grupo!
 - [x] Verficação de usuário online
 - [x] Verficação de mensagens lidas, canais privados
+
+## Tecnologias Utilizadas
+~~~Front-End
+* HTML 5
+* CSS 3
+* BOOTSTRAP 5.1
+* BLADE
+* JQUERY - (Ajax)
+~~~
+
+~~~Back-End
+* PHP 7.4.9
+* LARAVEL 8
+~~~
+
+~~~Banco
+* MySql 5.7
+~~~
+
+
