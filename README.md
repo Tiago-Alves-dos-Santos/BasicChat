@@ -52,13 +52,8 @@
 
 ## :movie_camera: Video de exemplo chat privado
 <video width="320" height="240" controls>
-  <source src="readme/demonstrativo.mp4" type="video/mp4">
+  <source src="demonstrativo-mov.mp4" type="video/mov">
 </video>
-![](readme/demonstrativo.mp4)
-<video width="320" height="240" controls>
-  <source src="readme/demonstrativo-mov.mp4" type="video/mov">
-</video>
-![](readme/demonstrativo-mov.mov)
 
 ### Observação
  Para enviar mensagens use `SHIFT + ENTER` 
