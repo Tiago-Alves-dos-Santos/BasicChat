@@ -1,7 +1,7 @@
 @extends('layouts.page-center', ['title_card' => 'Login'])
 
 @section('center-content')
-<form action="{{route('control.user.login')}}" method="POST" class="submit-loadPage id="form_login">
+<form action="{{route('control.user.login')}}" method="POST" class="submit-loadPage" id="form_login">
     @csrf
     <div class="form-row">
         <div class="col-md-12">
