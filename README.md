@@ -55,3 +55,4 @@
 
 ### Observação
  Para enviar mensagens use `SHIFT + ENTER` 
+ Caso ocorra erro na instalação, instale o node(LTS) 16.14.2 e execute `npm install` && `npm run dev`
